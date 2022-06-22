@@ -1,7 +1,11 @@
-function PizzaBlock(props){
+import React,{useState}from 'react'
+
+function PizzaBlock({title,price}){
+const []=useState(0);
+
     return(
         <div className="pizza-block">
-        <h4 className="pizza-block__title">{props.title}</h4>
+        <h4 className="pizza-block__title">{title}</h4>
         <img
           className="pizza-block__image"
           src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
@@ -20,7 +24,7 @@ function PizzaBlock(props){
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от{props.price} ₽</div>
+          <div className="pizza-block__price">от{price} ₽</div>
           <div className="button button--outline button--add">
             <svg
               width="12"
