@@ -1,7 +1,11 @@
+import React from "react";
+
 function Sort(){
-    return(
+  const [open,setOpen]=React.useState(false) // переключатель
+   
+  return(
       <div className="sort">
-      <div className="sort__label">
+      <div className="sort__label"> {/*сортировка по*/}
         <svg
           width="10"
           height="6"
