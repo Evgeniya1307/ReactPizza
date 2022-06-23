@@ -19,13 +19,13 @@ const typeNames=['тонкое','традиционное'];
            {/* рендарю тонкое традиционное тесто(0-1)*/ } 
         {types.map((type)=>( //есть индекс у тонкоетрадиционное
           <li onClick={()=>setActiveType(type)} className={activeType === type ? 'active':""}>{typeNames[type]}</li>// при рендери вытащи значение из typeNames
-          ))} {/* <li onClick={()=>setActiveType(type)}соз-ла анонимную фу-ию и передала сразу обновления*/ }
+          ))} {/* <li onClick={()=>setActiveType(type)}соз-ла анонимную фу-ию и передала сразу обновления будет выбираться тип тесто*/ }
            </ul>
           <ul>
             {/* рендарю размеры пицц*/ } 
         {sizes.map((size, i)=>(
-          <li className={activeSize=== i ? 'active' : ""}>{size} см.</li>
-    ))}
+          <li onClick={()=>setActiveSize(i)} className={activeSize=== i ? 'active' : ""}>{size} см.</li>
+    ))}{/* <li onClick={()=>setActiveSize(i)}для выбора см пиццы */}
           </ul>
         </div>
         <div className="pizza-block__bottom">
