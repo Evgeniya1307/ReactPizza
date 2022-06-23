@@ -15,7 +15,8 @@ const typeNames=['тонкое','традиционное']
         <div className="pizza-block__selector">
           <ul>
            {/* рендарю тонкое традиционное тесто*/ } 
-          </ul>
+        {types.map(type=><li>{type}</li>)}
+           </ul>
           <ul>
             {/* рендарю размеры пицц*/ } 
         {sizes.map(size=><li>{size} см.</li>)}
