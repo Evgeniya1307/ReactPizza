@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Categories from './components/Categories';
 import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
-
+import  Pizza from  './assets/Pizza.json';
 
 
 function App() {
@@ -12,23 +12,20 @@ function App() {
     <div className="wrapper">
     <Header/>
     <div className='content'>
-    <div className="content">
       <div className="container">
         <div className="content__top">
     <Categories/>
     <Sort/>
-   
-         
-    
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div  className="content__items">
-        <PizzaBlock title="Мексиканская" price="500"/>
-        <PizzaBlock title="jjj" price="350"/>
+        {
+          Pizza.map(obj=><PizzaBlock title={obj.title} price={obj.price} image={obj.imageUrl}/>)
+        }
+       
 </div>
 </div>   </div>
         </div>
-      </div>
   )
 }
   
