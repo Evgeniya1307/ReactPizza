@@ -1,7 +1,9 @@
 import React from 'react'
 
 function PizzaBlock({title,price, image, sizes,types}){
-const typeNames=['тонкое','традиционное']
+const[activeType, setActiveType]=React.useState(0);
+  const[activeSize,setActiveSize]=React.useState(0)
+const typeNames=['тонкое','традиционное'];
 
     return(
         <div className="pizza-block">
@@ -16,12 +18,14 @@ const typeNames=['тонкое','традиционное']
           <ul>
            {/* рендарю тонкое традиционное тесто(0-1)*/ } 
         {types.map((type)=>( //есть индекс у тонкоетрадиционное
-          <li>{typeNames[type]}</li>// при рендери вытащи значение из typeNames
-          ))}
+          <li onClick={()=>setActiveType(type)} className={activeType === type ? 'active':""}>{typeNames[type]}</li>// при рендери вытащи значение из typeNames
+          ))} {/* <li onClick={()=>setActiveType(type)}соз-ла анонимную фу-ию и передала сразу обновления*/ }
            </ul>
           <ul>
             {/* рендарю размеры пицц*/ } 
-        {sizes.map(size=><li>{size} см.</li>)}
+        {sizes.map((size, i)=>(
+          <li className={activeSize=== i ? 'active' : ""}>{size} см.</li>
+    ))}
           </ul>
         </div>
         <div className="pizza-block__bottom">
