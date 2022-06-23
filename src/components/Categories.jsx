@@ -14,10 +14,14 @@ const categories=['Все', 'Мясные', 'Вегетарианские', 'Г�
       <div className="categories">
       <ul>
 
-{categories.map((value,index)=><li onClick={()=> onClickCategory(0)} className={activeIndex===0 ? "active" : ""}>{value}</li>)} </ul>
+{categories.map((value,i)=>(
+  <li key={i} 
+  onClick={()=> onClickCategory(0)} className={activeIndex===0 ? "active" : ""}>{value}</li>))} </ul>
       
     </div>
     )
   }
   
   export default Categories;
+
+  //если я рендерю список и если он статичный т,е не мен-ся то могу в key передавать индекс key={i}  
