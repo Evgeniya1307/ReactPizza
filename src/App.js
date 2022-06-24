@@ -1,47 +1,39 @@
-import "./scss/app.scss";
-import Header from "./components/Header";
-import Categories from "./components/Categories";
-import Sort from "./components/Sort";
-import PizzaBlock from "./components/PizzaBlock/index.jsx";
+
+import{Routes,Route}from 'react-router-dom'
 import React from "react";
-import Skeleton from "./components/PizzaBlock/Sceleton";
+
+import Header from "./components/Header";
+import "./scss/app.scss";
+import Home from "./pages/Home";
+import Cart from './pages/Cart.jsx'
+import NotFound from './pages/NotFound';
+
+
+
 
 function App() {
-  const [items, setItems] = React.useState([]);
-  const[isLoading,setIsLoading]=React.useState(true);// буду понимать что отображать скелитон или реальную пиццу
-
-  React.useEffect(() => {
-    fetch("https://62b56641da3017eabb19e0f8.mockapi.io/items")
-      .then((res) => res.json())
-      .then((arr) => {
-        setItems(arr);//отрендери мне пиццы
-        setIsLoading(false)//загрузка завершилась
-      });
-  }, []);
-
-  return (
+ return (
     <div className="wrapper">
       <Header />
       <div className="content">
-        <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">Все пиццы</h2>
-          <div className="content__items">
-            {
-              isLoading 
-              ? [...new Array(6)].map((_,index)=><Skeleton key={index}/>) 
-            : items.map((obj)=> <PizzaBlock key={obj.id}{...obj}/>)} {/*создать массив фейковый из 6 и заменить на скелетон иначе возьми рендери айтемс мап возьми объект и его отрендери*/ } 
-       </div>
+      <div className="container"> 
+      <Routes>
+      {/*логика react rote */}
+      <Route path="/" element={<Home/>} /> {/*если указан "/" то рендери Home*/}
+      <Route path="/cart" element={<Cart/>} /> {/* */}
+      <Route path="*" element={<NotFound/>} />{/* "*"это значит если один из этих роутеров не подойдёт то это последний что подошло  NotFound/>*/}
+                </Routes>
+              </div>
             </div>
-      </div>
-    </div>
-  );
-}
+          </div>
+        );
+      }
 
 export default App;
+
+
+
+
 
 
 // <PizzaBlock
