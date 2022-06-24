@@ -4,9 +4,11 @@ import Categories from "./components/Categories";
 import Sort from "./components/Sort";
 import PizzaBlock from "./components/PizzaBlock/index.jsx";
 import React from "react";
+import Skeleton from "./components/PizzaBlock/Sceleton";
 
 function App() {
   const [items, setItems] = React.useState([]);
+  const[isLoading,setIsLoading]=React.useState(true);// буду понимать что отображать скелитон или реальную пиццу
 
   React.useEffect(() => {
     fetch("https://62b56641da3017eabb19e0f8.mockapi.io/items")
