@@ -29,21 +29,25 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            {items.map((obj) => (
-              <PizzaBlock
-                key={obj.id}
-                title={obj.title}
-                price={obj.price}
-                image={obj.imageUrl}
-                sizes={obj.sizes}
-                types={obj.types}
-              /> //можно так а можно и если увереная что будут точно такие объекты по корече {...obj}/>)
-            ))}
-          </div>
-        </div>{" "}
+            {
+              isLoading 
+              ? [...new Array(6)].map(()=><Skeleton/>) 
+            : items.map((obj)=> <PizzaBlock key={obj.id}{...obj}/>)} {/*создать массив фейковый из 6 и заменить на скелетон иначе возьми рендери айтемс мап возьми объект и его отрендери*/ } 
+       </div>
+            </div>
       </div>
     </div>
   );
 }
 
 export default App;
+
+
+// <PizzaBlock
+              //   key={obj.id}
+              //   title={obj.title}
+              //   price={obj.price}
+              //   image={obj.imageUrl}
+              //   sizes={obj.sizes}
+              //   types={obj.types}
+              // /> //можно так а можно и если увереная что будут точно такие объекты по корече {...obj}/>)
