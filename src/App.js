@@ -14,7 +14,8 @@ function App() {
     fetch("https://62b56641da3017eabb19e0f8.mockapi.io/items")
       .then((res) => res.json())
       .then((arr) => {
-        setItems(arr);
+        setItems(arr);//отрендери мне пиццы
+        setIsLoading(false)//загрузка завершилась
       });
   }, []);
 
@@ -31,7 +32,7 @@ function App() {
           <div className="content__items">
             {
               isLoading 
-              ? [...new Array(6)].map(()=><Skeleton/>) 
+              ? [...new Array(6)].map((_,index)=><Skeleton key={index}/>) 
             : items.map((obj)=> <PizzaBlock key={obj.id}{...obj}/>)} {/*создать массив фейковый из 6 и заменить на скелетон иначе возьми рендери айтемс мап возьми объект и его отрендери*/ } 
        </div>
             </div>
