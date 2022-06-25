@@ -1,26 +1,25 @@
 import React from "react";
 
-function Sort(){
-  const [open,setOpen]=React.useState(false) // переключатель
-   //отвечает за выбранную сортировку 
-const [selected, setSelected]=React.useState(0)
-  
+function Sort() {
+  const [open, setOpen] = React.useState(false); // переключатель
+  //отвечает за выбранную сортировку
+  const [selected, setSelected] = React.useState(0);
+
   //для списка по популрности
-const list=['популярности', 'цене', 'алфавиту'];
+  const list = ["популярности", "цене", "алфавиту"];
 
-const sortName=list[selected]
+  const sortName = list[selected];
 
+  const onClickListItem = (i) => {
+    setSelected(i); // когда выберешь какой то сорт
+    setOpen(false); // и скройся
+  };
 
-
-
-const onClickListItem = (i) => {
-  setSelected(i); // когда выберешь какой то сорт 
-  setOpen(false); // и скройся
-};
-
-  return(
-      <div className="sort">
-      <div className="sort__label"> {/*сортировка по*/}
+  return (
+    <div className="sort">
+      <div className="sort__label">
+        {" "}
+        {/*сортировка по*/}
         <svg
           width="10"
           height="6"
@@ -34,30 +33,34 @@ const onClickListItem = (i) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={()=>setOpen(!open)}>{sortName}</span> {/*когда буду кликать будет скрываться или показываться*/}
+        <span onClick={() => setOpen(!open)}>{sortName}</span>{" "}
+        {/*когда буду кликать будет скрываться или показываться*/}
       </div>
-      {open && // будет показываться
-        <div className="sort__popup"> {/*по цене популярности алфавиту*/}
-        <ul>
-        {list.map((name, i) => (
-          <li
-            key={i}
-            onClick={() => {
-              onClickListItem(i);
-            }}
-            className={selected === i ? "active" : ""}
-          >
-            {name}
-          </li>
-        ))}
-        </ul>
-      </div>
-     })
+      {open && ( // будет показываться
+        <div className="sort__popup">
+          {" "}
+          {/*по цене популярности алфавиту*/}
+          <ul>
+            {list.map((name, i) => (
+              <li
+                key={i}
+                onClick={() => {
+                  onClickListItem(i);
+                }}
+                className={selected === i ? "active" : ""}
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      )
     </div>
-    )
-  }
+  );
+}
 
-  export default Sort;
+export default Sort;
 
-  //&& если правая сторона true иди ко второй и верни  
-  //5&&6 вернёт 6 //0&&3 вернёт 0
+//&& если правая сторона true иди ко второй и верни
+//5&&6 вернёт 6 //0&&3 вернёт 0
