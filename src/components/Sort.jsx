@@ -55,7 +55,6 @@ function Sort() {
           </ul>
         </div>
       )}
-      )
     </div>
   );
 }
