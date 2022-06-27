@@ -12,7 +12,7 @@ function App() {
     <div className="wrapper">
       <Header />
       <div className="content">
-        <div className="container">
+     
           <Routes>
             {/*логика react route */}
             <Route path="/" element={<Home />} />{" "}
@@ -23,7 +23,7 @@ function App() {
           </Routes>
         </div>
       </div>
-    </div>
+   
   );
 }
 

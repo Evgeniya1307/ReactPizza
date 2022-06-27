@@ -15,9 +15,10 @@ const Home = () => {
         setItems(arr);
         setIsLoading(false);
       });
+      window.scrollTo(0,0);//js делаю скрол вверх
   }, []);
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -34,7 +35,7 @@ const Home = () => {
             sizes={obj.sizes}
             types={obj.types} />)}
       </div>
-    </>
+ </div>
   );
 };
 
