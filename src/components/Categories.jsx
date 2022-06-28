@@ -1,6 +1,6 @@
 
 
-function Categories({value, onChangeCategory}) { //value -активный индекс храню в велью а onClickCategory
+function Categories({value, onChangeCategory}) { //value -активный индекс храню в велью а onСhangeCategory меняет стейт
   const categories = [
     "Все",
     "Мясные",

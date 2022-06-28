@@ -5,8 +5,8 @@ function Sort({ value, onChangeSort }) {
   const [open, setOpen] = React.useState(false); // переключатель
   //для списка по популрности
   const list = [
-    { name: "популярности(DESC)", sortProperty: "rating" }, // убывание
-    { name: "популярности(ASC)", sortProperty: "-rating" }, //-возрастанию
+    { name: "популярности(DESC)", sortProperty: "rating" }, // убывание от большему к меньшему
+    { name: "популярности(ASC)", sortProperty: "-rating" }, //-возрастанию от меньшему к большему
     { name: "цене(DESC)", sortProperty: "price" },
     { name: "цене(ASC)", sortProperty: "-price" },
     { name: "алфавиту(DESC)", sort: "title" },

@@ -9,50 +9,62 @@ const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
-  const [sortType, setSortType] = React.useState({name:"популярности",sortProperty:"rating"}); //тут хранится объект в нём есть св-тва sortType пере-ся в комепонент Sort.../>он выта-ся из велью и велью хранит в себе объект и это велью рендарю там где спан и {value.name}   хранится логика сортировки  будет делать изменение сортировки setSortType 
+  const [sortType, setSortType] = React.useState({
+    name: "популярности",
+    sortProperty: "rating",
+  }); //тут хранится объект в нём есть св-тва sortType пере-ся в комепонент Sort.../>он выта-ся из велью и велью хранит в себе объект и это велью рендарю там где спан и {value.name}   хранится логика сортировки  будет делать изменение сортировки setSortType
+
+  
   
   React.useEffect(() => {
     setIsLoading(true); // перед загрузкой идёт имогу выбирать по филтрации пиццы
-    
-    const order=sortType.sortProperty.includes("-") ? "asc" : "desc"; // проверка на если есть -
-    const sortBy=sortType.sortProperty.replace("-","");//replace("-") вырезала
 
+    const sortBy = sortType.sortProperty.replace("-", ""); //replace("-") из св-ства удали - если будет 
+    const order = sortType.sortProperty.includes("-") ? "asc" : "desc"; // проверка на если есть - то делай сортировку по возрастанию иначе по убыванию 
+    const category = categoryId > 0 ? "category" : `category=${categoryId}`;
 
-    fetch(`https://62b41f5aa36f3a973d2c669d.mockapi.io/items?${
-      categoryId> 0 ?`category=${categoryId}`: "" //делаю проверку в запросе если категорииайди >0 то в этом случае `category=${categoryId}`: иначе ""` 
-    }&sortBy=${sortBy}&order=${order}`) // по убыванию сортировать  
+      fetch(
+        `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${category}&sortBy${sortBy}&order=${order}`
+      )// по убыванию сортировать
       .then((res) => res.json())
       .then((arr) => {
-        setItems(arr);
-        setIsLoading(false);//после загрузки запрос завершился
+        setItems(arr); //возвращает новые пиццы
+        setIsLoading(false); //после загрузки запрос завершился
       });
-      window.scrollTo(0,0);//js делаю скрол вверх
-  }, [categoryId, sortType]); //массив зависимости следит если изменения иди в бэкенд
+    window.scrollTo(0, 0); //js делаю скрол вверх
+  }, [categoryId, sortType]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
   return (
     <div className="container">
       <div className="content__top">
-      <Categories
-      value={categoryId}
-      onChangeCategory={(i) => setCategoryId(i)}
-    /> {/*// в онклик передаю фу-ию  когда ты сработаешь onChangeCategory={(i) то вызови мне  setCategoryId=(i) */}
-    <Sort value={sortType} onChangeSort={(i) => setSortType(i)} /> {/*делаю сортировку по популярности и т,д */}
+        <Categories
+          value={categoryId}
+          onChangeCategory={(i) => setCategoryId(i)}
+        />{" "}
+        {/*// в онклик передаю фу-ию  когда ты сработаешь onChangeCategory={(i) то вызови мне  setCategoryId=(i) */}
+        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />{" "}
+        {/*делаю сортировку по популярности и т,д */}
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {isLoading
           ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-          : items.map((obj) => <PizzaBlock 
-          key={obj.id}
-            title={obj.title}
-             price={obj.price}
-            image={obj.imageUrl}
-            sizes={obj.sizes}
-            types={obj.types} />)}
+          : items.map((obj) => (
+              <PizzaBlock
+                key={obj.id}
+                title={obj.title}
+                price={obj.price}
+                image={obj.imageUrl}
+                sizes={obj.sizes}
+                types={obj.types}
+              />
+            ))}
       </div>
- </div>
+    </div>
   );
 };
 
 export default Home;
 
- {/*можно так а можно и если увереная что будут точно такие объекты по корече {...obj}/>) */}
+{
+  /*можно так а можно и если увереная что будут точно такие объекты по корече {...obj}/>) */
+}

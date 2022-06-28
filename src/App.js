@@ -8,9 +8,10 @@ import Cart from "./pages/Cart.jsx";
 import NotFound from "./pages/NotFound";
 
 function App() {
+  const [searchValue,setSearchValue]=React.useState("")//стейт который хранит поле поиска
   return (
     <div className="wrapper">
-      <Header />
+      <Header searchValue={searchValue}setSearchValue={setSearchValue}/> 
       <div className="content">
      
           <Routes>
