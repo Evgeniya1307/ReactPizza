@@ -3,7 +3,10 @@ import React from "react";
 function Sort({value,onChangeSort}) { //вытаскиваю пропс
   const [open, setOpen] = React.useState(false); // переключатель
   //для списка по популрности
-  const list = ["популярности", "цене", "алфавиту"];
+  const list = [{name:"популярности",sort:"rating"},
+  {name:"цене", sort: "price"},
+  {name:"алфавиту", sort: "title"} 
+];
 const sortName = list[value];
 
   const onClickListItem = (i) => {
@@ -37,7 +40,7 @@ const sortName = list[value];
           {" "}
           {/*по цене популярности алфавиту*/}
           <ul>
-            {list.map((name, i) => (
+            {list.map((obj, i) => ( //obj там где const list
               <li
                 key={i}
                 onClick={() => {
@@ -45,7 +48,7 @@ const sortName = list[value];
                 }}
                 className={value === i ? "active" : ""}
               >
-                {name}
+                {obj} 
               </li>
             ))}
           </ul>
