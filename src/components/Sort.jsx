@@ -3,11 +3,11 @@ import React from "react";
 function Sort({value,onChangeSort}) { //вытаскиваю пропс
   const [open, setOpen] = React.useState(false); // переключатель
   //для списка по популрности
-  const list = [{name:"популярности",sort:"rating"},
-  {name:"цене", sort: "price"},
+  const list = [{name:"популярности",sortProperty:"rating"},
+  {name:"цене", sortProperty: "price"},
   {name:"алфавиту", sort: "title"} 
 ];
-const sortName = list[value];
+
 
   const onClickListItem = (i) => {
     onChangeSort(i); // когда выберешь какой то сорт
@@ -32,7 +32,7 @@ const sortName = list[value];
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortName}</span>{" "}
+        <span onClick={() => setOpen(!open)}>{value.name}</span>{" "}
         {/*когда буду кликать будет скрываться или показываться*/}
       </div>
       {open && ( // будет показываться
@@ -43,12 +43,9 @@ const sortName = list[value];
             {list.map((obj, i) => ( //obj там где const list
               <li
                 key={i}
-                onClick={() => {
-                  onClickListItem(i);
-                }}
-                className={value === i ? "active" : ""}
-              >
-                {obj} 
+                onClick={() => onClickListItem(obj)}
+                className={value.sortProperty === obj.sortProperty  ? "active" : ""}> {/*проверяю то что у родителя хранится в home сравниваю с тем что рендарю */}
+                {obj.name} 
               </li>
             ))}
           </ul>

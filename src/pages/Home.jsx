@@ -9,7 +9,7 @@ const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
-  const [sortType, setSortType] = React.useState(0); //хранится логика сортировки  будет делать изменение сортировки setSortType 
+  const [sortType, setSortType] = React.useState({name:"популярности",sortProperty:"rating"}); //тут хранится объект в нём есть св-тва sortType пере-ся в комепонент Sort.../>он выта-ся из велью и велью хранит в себе объект и это велью рендарю там где спан и {value.name}   хранится логика сортировки  будет делать изменение сортировки setSortType 
   
   React.useEffect(() => {
     setIsLoading(true); // перед загрузкой идёт имогу выбирать по филтрации пиццы
