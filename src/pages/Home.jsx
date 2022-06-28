@@ -20,7 +20,7 @@ const Home = () => {
         setIsLoading(false);//после загрузки запрос завершился
       });
       window.scrollTo(0,0);//js делаю скрол вверх
-  }, [categoryId, setCategoryId]); //массив зависимости следит если изменения иди в бэкенд
+  }, [categoryId, sortType]); //массив зависимости следит если изменения иди в бэкенд
   return (
     <div className="container">
       <div className="content__top">
