@@ -1,17 +1,13 @@
 import React from "react";
 
-function Sort() {
+function Sort({value,onChangeSort}) { //вытаскиваю пропс
   const [open, setOpen] = React.useState(false); // переключатель
-  //отвечает за выбранную сортировку
-  const [selected, setSelected] = React.useState(0);
-
   //для списка по популрности
   const list = ["популярности", "цене", "алфавиту"];
-
-  const sortName = list[selected];
+const sortName = list[value];
 
   const onClickListItem = (i) => {
-    setSelected(i); // когда выберешь какой то сорт
+    onChangeSort(i); // когда выберешь какой то сорт
     setOpen(false); // и скройся
   };
 
@@ -47,7 +43,7 @@ function Sort() {
                 onClick={() => {
                   onClickListItem(i);
                 }}
-                className={selected === i ? "active" : ""}
+                className={value === i ? "active" : ""}
               >
                 {name}
               </li>

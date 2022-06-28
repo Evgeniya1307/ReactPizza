@@ -9,7 +9,7 @@ const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
-  const [sortType, setSortType] = React.useState(0); // будет делать изменение сортировки setSortType
+  const [sortType, setSortType] = React.useState(0); //хранится логика сортировки  будет делать изменение сортировки setSortType 
   
   React.useEffect(() => {
     setIsLoading(true); // перед загрузкой идёт имогу выбирать по филтрации пиццы
@@ -20,7 +20,7 @@ const Home = () => {
         setIsLoading(false);//после загрузки запрос завершился
       });
       window.scrollTo(0,0);//js делаю скрол вверх
-  }, [categoryId]);
+  }, [categoryId, setCategoryId]); //массив зависимости следит если изменения иди в бэкенд
   return (
     <div className="container">
       <div className="content__top">
