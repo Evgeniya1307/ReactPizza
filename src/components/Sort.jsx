@@ -1,13 +1,17 @@
 import React from "react";
 
-function Sort({value,onChangeSort}) { //вытаскиваю пропс
+function Sort({ value, onChangeSort }) {
+  //вытаскиваю пропс
   const [open, setOpen] = React.useState(false); // переключатель
   //для списка по популрности
-  const list = [{name:"популярности",sortProperty:"rating"},
-  {name:"цене", sortProperty: "price"},
-  {name:"алфавиту", sort: "title"} 
-];
-
+  const list = [
+    { name: "популярности(DESC)", sortProperty: "rating" }, // убывание
+    { name: "популярности(ASC)", sortProperty: "-rating" }, //-возрастанию
+    { name: "цене(DESC)", sortProperty: "price" },
+    { name: "цене(ASC)", sortProperty: "-price" },
+    { name: "алфавиту(DESC)", sort: "title" },
+    { name: "алфавиту(ASC)", sort: "-title" }
+  ];
 
   const onClickListItem = (i) => {
     onChangeSort(i); // когда выберешь какой то сорт
@@ -40,14 +44,24 @@ function Sort({value,onChangeSort}) { //вытаскиваю пропс
           {" "}
           {/*по цене популярности алфавиту*/}
           <ul>
-            {list.map((obj, i) => ( //obj там где const list
-              <li
-                key={i}
-                onClick={() => onClickListItem(obj)}
-                className={value.sortProperty === obj.sortProperty  ? "active" : ""}> {/*проверяю то что у родителя хранится в home сравниваю с тем что рендарю */}
-                {obj.name} 
-              </li>
-            ))}
+            {list.map(
+              (
+                obj,
+                i //obj там где const list
+              ) => (
+                <li
+                  key={i}
+                  onClick={() => onClickListItem(obj)}
+                  className={
+                    value.sortProperty === obj.sortProperty ? "active" : ""
+                  }
+                >
+                  {" "}
+                  {/*проверяю то что у родителя хранится в home сравниваю с тем что рендарю */}
+                  {obj.name}
+                </li>
+              )
+            )}
           </ul>
         </div>
       )}
