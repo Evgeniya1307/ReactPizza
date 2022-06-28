@@ -15,10 +15,12 @@ const Home = () => {
     setIsLoading(true); // перед загрузкой идёт имогу выбирать по филтрации пиццы
     
     const order=sortType.sortProperty.includes("-") ? "asc" : "desc"; // проверка на если есть -
-    
+    const sortBy=sortType.sortProperty.replace("-","");//replace("-") вырезала
+
+
     fetch(`https://62b41f5aa36f3a973d2c669d.mockapi.io/items?${
       categoryId> 0 ?`category=${categoryId}`: "" //делаю проверку в запросе если категорииайди >0 то в этом случае `category=${categoryId}`: иначе ""` 
-    }&sortBy=${sortType.sortProperty.replace("-", "")}&order=${sortType.sortProperty.includes("-")}`) // по убыванию сортировать  //replace("-") вырезала
+    }&sortBy=${sortBy}&order=${order}`) // по убыванию сортировать  
       .then((res) => res.json())
       .then((arr) => {
         setItems(arr);
