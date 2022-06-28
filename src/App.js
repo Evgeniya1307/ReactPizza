@@ -16,7 +16,7 @@ function App() {
      
           <Routes>
             {/*логика react route */}
-            <Route path="/" element={<Home />} />{" "}
+            <Route path="/" element={<Home searchValue={searchValue}/>} />{" "}
             {/*если указан "/" то рендери Home*/}
             <Route path="/cart" element={<Cart />} /> {/* */}
             <Route path="*" element={<NotFound />} />

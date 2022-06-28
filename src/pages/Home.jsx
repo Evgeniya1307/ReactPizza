@@ -5,7 +5,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import Sort from "../components/Sort";
 import Categories from "../components/Categories";
 
-const Home = () => {
+const Home = ({searchValue}) => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
@@ -33,6 +33,24 @@ const Home = () => {
       });
     window.scrollTo(0, 0); //js делаю скрол вверх
   }, [categoryId, sortType]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
+  
+  const pizzas=items.filter(obj=>{
+ if(obj.title.includes(searchValue)){ //если в объекте title содержит то что есть searchValue то сделай true 
+  return true;
+ }
+
+ return false; //иначе фолс
+  }).map((obj) => <PizzaBlock key={obj.id}
+      title={obj.title}
+      price={obj.price}
+      image={obj.imageUrl}
+      sizes={obj.sizes}
+      types={obj.types}
+    />) // массив объектов переобразую в массив пицц
+ 
+const  skeletons =[...new Array(6)].map((_, index) => <Skeleton key={index} />)
+
+  
   return (
     <div className="container">
       <div className="content__top">
@@ -46,18 +64,7 @@ const Home = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {isLoading
-          ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-          : items.map((obj) => (
-              <PizzaBlock
-                key={obj.id}
-                title={obj.title}
-                price={obj.price}
-                image={obj.imageUrl}
-                sizes={obj.sizes}
-                types={obj.types}
-              />
-            ))}
+        {isLoading  ? skeletons : pizzas}
       </div>
     </div>
   );
