@@ -1,10 +1,10 @@
 import React from 'react'
 import { GrClose } from "react-icons/gr";
 import styles from "./search.module.scss";
-
+import { SearchContext} from "../../App";
 
 const Search = () => {
-    const {searchValue,setSearchValue} = React.useContext(SearchContext) 
+    const {searchValue,setSearchValue} = React.useContext(SearchContext) //вытаскиваю и этот хук ссылается на эту переменную а в app я описала в провайдере значение 
     
     return (
       <div className={styles.root}>

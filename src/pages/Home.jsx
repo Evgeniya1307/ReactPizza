@@ -1,14 +1,16 @@
 import React from "react";
-import ReactPaginate from "react-paginate";
+
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Sort from "../components/Sort";
 import Categories from "../components/Categories";
+import Pagination from "../components/Pagination";
 
 const Home = ({searchValue}) => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
+  const[currentPage, setCurrentPage] = React.useState(1);
   const [sortType, setSortType] = React.useState({
     name: "популярности",
     sortProperty: "rating",
@@ -25,7 +27,7 @@ const Home = ({searchValue}) => {
 const search = searchValue ? `&search="${searchValue}"` : ""; 
 
       fetch(
-        `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${category}&sortBy${sortBy}&order=${order}${search}`
+        `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page={currentPage}&limit=4&${category}&sortBy${sortBy}&order=${order}${search}`
       )// по убыванию сортировать
       .then((res) => res.json())
       .then((arr) => {
@@ -33,7 +35,7 @@ const search = searchValue ? `&search="${searchValue}"` : "";
         setIsLoading(false); //после загрузки запрос завершился
       });
     window.scrollTo(0, 0); //js делаю скрол вверх
-  }, [categoryId, sortType, searchValue]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
+  }, [categoryId, sortType, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
   
   const pizzas=items
   .map((obj)=> <PizzaBlock key={obj.id}
@@ -62,13 +64,13 @@ const  skeletons =[...new Array(6)].map((_, index) => <Skeleton key={index} />)
       <div className="content__items">
         {isLoading  ? skeletons : pizzas}
       </div>
-
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </div>
   );
 };
 
 export default Home;
 
-{
-  /*можно так а можно и если увереная что будут точно такие объекты по корече {...obj}/>) */
-}
+
+
+{/*можно так а можно и если увереная что будут точно такие объекты по корече {...obj}/>) */}
