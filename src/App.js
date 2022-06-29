@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-
+import { createContext, useState } from "react";
 import Header from "./components/Header";
 import "./scss/app.scss";
 import Home from "./pages/Home";
@@ -7,11 +7,11 @@ import Cart from "./pages/Cart.jsx";
 import NotFound from "./pages/NotFound";
 
 
- const SearchContext = React.createContext();
+export const SearchContext = createContext();//создала контекст
 
 
  function App() {
-  const [searchValue,setSearchValue]=React.useState("")//стейт который хранит поле поиска
+  const [searchValue,setSearchValue]=useState("")//стейт который хранит поле поиска
   return (
     <div className="wrapper">
     <SearchContext.Provider value={{searchValue,setSearchValue}}>
@@ -20,7 +20,7 @@ import NotFound from "./pages/NotFound";
      
           <Routes>
             {/*логика react route */}
-            <Route path="/" element={<Home searchValue={searchValue}/>} />{" "}
+            <Route path="/" element={<Home />} />
             {/*если указан "/" то рендери Home*/}
             <Route path="/cart" element={<Cart />} /> {/* */}
             <Route path="*" element={<NotFound />} />
