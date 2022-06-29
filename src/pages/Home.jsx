@@ -1,5 +1,5 @@
 import React from "react";
-
+import ReactPaginate from "react-paginate";
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Sort from "../components/Sort";
@@ -22,9 +22,10 @@ const Home = ({searchValue}) => {
     const sortBy = sortType.sortProperty.replace("-", ""); //replace("-") из св-ства удали - если будет 
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc"; // проверка на если есть - то делай сортировку по возрастанию иначе по убыванию 
     const category = categoryId > 0 ? "category" : `category=${categoryId}`;
+const search = searchValue ? `&search="${searchValue}"` : ""; 
 
       fetch(
-        `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${category}&sortBy${sortBy}&order=${order}`
+        `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${category}&sortBy${sortBy}&order=${order}${search}`
       )// по убыванию сортировать
       .then((res) => res.json())
       .then((arr) => {
@@ -32,15 +33,10 @@ const Home = ({searchValue}) => {
         setIsLoading(false); //после загрузки запрос завершился
       });
     window.scrollTo(0, 0); //js делаю скрол вверх
-  }, [categoryId, sortType]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
+  }, [categoryId, sortType, searchValue]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
   
-  const pizzas=items.filter(obj=>{
- if(obj.title.includes(searchValue)){ //если в объекте title содержит то что есть searchValue то сделай true 
-  return true;
- }
-
- return false; //иначе фолс
-  }).map((obj) => <PizzaBlock key={obj.id}
+  const pizzas=items
+  .map((obj)=> <PizzaBlock key={obj.id}
       title={obj.title}
       price={obj.price}
       image={obj.imageUrl}
@@ -66,6 +62,7 @@ const  skeletons =[...new Array(6)].map((_, index) => <Skeleton key={index} />)
       <div className="content__items">
         {isLoading  ? skeletons : pizzas}
       </div>
+
     </div>
   );
 };
