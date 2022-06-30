@@ -48,8 +48,10 @@ const Home = () => {
     //   });
 
 
-axios.get( `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page={currentPage}&limit=4&${category}&sortBy${sortBy}&order=${order}${search}`)
-
+axios
+.get( 
+  `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page={currentPage}&limit=4&${category}&sortBy${sortBy}&order=${order}${search}`
+  )
 .then((res)=>{  // указываю что нужно вытащить ответ от сервера
 setItems(res.data) // то что нужно хр-ся в дата там ответ от бэкенда
 })
@@ -58,7 +60,7 @@ setItems(res.data) // то что нужно хр-ся в дата там отв
 
 
 window.scrollTo(0, 0); //js делаю скрол вверх
-  }, [categoryId, sortType, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
   const pizzas = items.map((obj) => (
     <PizzaBlock

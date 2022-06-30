@@ -5,7 +5,9 @@ import { SearchContext} from "../../App";
 
 const Search = () => {
     const {searchValue,setSearchValue} = React.useContext(SearchContext) //вытаскиваю и этот хук ссылается на эту переменную а в app я описала в провайдере значение 
-    
+    //будет хра-ся ссылка на дом элементов моего интпута
+    const inputRef = React.useRef() // reactjs возьми свою логику сохрани в переменной inputRef
+
     return (
       <div className={styles.root}>
         <svg
@@ -68,7 +70,8 @@ const Search = () => {
             y2="20.366"
           />
         </svg>
-        <input
+        <input 
+        ref={inputRef}
           value={searchValue}
           onChange={(event) => setSearchValue(event.target.value)} //стейт будет сох-ть то что из инпута в SearchValue она из-ся и пойдёт в велью и каждый раз будет вы-ся  onChange и мен-ся велью наш велью кот-ый в инпуте будет делать перерисовку
           className={styles.input}
