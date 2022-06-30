@@ -1,6 +1,12 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 
-function Sort({ value, onChangeSort }) {
+
+
+function Sort() {
+  const dispatch= useDispatch();// будет передвать в редакс действие
+ const sort = useSelector(state=>state.filter.sort)//стейт из редюсера фильт вытащи свойство стор
+  
   //вытаскиваю пропс
   const [open, setOpen] = React.useState(false); // переключатель
   //для списка по популрности
