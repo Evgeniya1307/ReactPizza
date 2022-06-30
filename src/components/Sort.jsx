@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-
+import setSort from "../redux/slices/filterSlice.jsx"
 
 
 function Sort() {
@@ -20,7 +20,7 @@ function Sort() {
   ];
 
   const onClickListItem = (obj) => {
-   dispatch()
+   dispatch(setSort())// вернёт объект
     // onChangeSort(i); // когда выберешь какой то сорт
     setOpen(false); // и скройся
   };
