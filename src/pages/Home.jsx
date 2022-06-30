@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "@reduxjs/toolkit";
-
+import { useDispatch, useSelector } from 'react-redux'
+import { setCategoryId } from "../redux/slices/filterSlice.jsx";
 
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
@@ -10,9 +10,11 @@ import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 
 const Home = () => {
-const categoryId=useSelector(state=>state.filter.categoryId)// вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через .
+const dispatch = useDispatch()
+
+  const categoryId=useSelector(state=>state.filter.categoryId)// вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
   
-  
+
   
   
   const {searchValue}=React.useContext(SearchContext)
@@ -25,6 +27,9 @@ const categoryId=useSelector(state=>state.filter.categoryId)// вытаскив�
     sortProperty: "rating",
   }); //тут хранится объект в нём есть св-тва sortType пере-ся в комепонент Sort.../>он выта-ся из велью и велью хранит в себе объект и это велью рендарю там где спан и {value.name}   хранится логика сортировки  будет делать изменение сортировки setSortType
 
+  const  onChangeCategory= (id)=>{
+dispatch(setCategoryId)//метод меняеющий категорию
+  }
   
   
   React.useEffect(() => {
@@ -63,8 +68,7 @@ const  skeletons =[...new Array(6)].map((_, index) => <Skeleton key={index} />)
       <div className="content__top">
         <Categories
           value={categoryId}
-          onChangeCategory={(i) => setCategoryId(i)}
-        />{" "}
+          onChangeCategory= {onChangeCategory}/>
         {/*// в онклик передаю фу-ию  когда ты сработаешь onChangeCategory={(i) то вызови мне  setCategoryId=(i) */}
         <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />{" "}
         {/*делаю сортировку по популярности и т,д */}
