@@ -2,13 +2,6 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import setSort from "../redux/slices/filterSlice.jsx"
 
-
-function Sort() {
-  const dispatch= useDispatch();// будет передвать в редакс действие
- const sort = useSelector((state)=>state.filter.sort)//стейт из редюсера фильт вытащи свойство стор
-  
-  //вытаскиваю пропс
-  const [open, setOpen] = React.useState(false); // переключатель
   //для списка по популрности
   const list = [
     { name: "популярности(DESC)", sortProperty: "rating" }, // убывание от большему к меньшему
@@ -19,8 +12,19 @@ function Sort() {
     { name: "алфавиту(ASC)", sort: "-title" }
   ];
 
+
+
+
+function Sort() {
+  const dispatch= useDispatch();// будет передвать в редакс действие
+ const sort = useSelector((state)=>state.filter.sort)//стейт из редюсера фильт вытащи свойство стор
+  
+  //вытаскиваю пропс
+  const [open, setOpen] = React.useState(false); // переключатель
+
+
   const onClickListItem = (obj) => {
-   dispatch(setSort())// вернёт объект
+   dispatch(setSort(obj))// вернёт объект
     // onChangeSort(i); // когда выберешь какой то сорт
     setOpen(false); // и скройся
   };

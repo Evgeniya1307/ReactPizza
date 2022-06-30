@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategoryId } from "../redux/slices/filterSlice.jsx";
+import axios from "axios";
 
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
@@ -11,8 +12,9 @@ import { SearchContext } from "../App";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const categoryId = useSelector((state) => state.filter.categoryId); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
-  const sortType = useSelector((state) => state.filter.sort.sortProperty);
+  const {categoryId, sort}  = useSelector((state) => state.filter); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
+ const sortType = sort.sortProperty;
+  
   const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -36,15 +38,26 @@ const Home = () => {
     const category = categoryId > 0 ? "category" : `category=${categoryId}`;
     const search = searchValue ? `&search="${searchValue}"` : "";
 
-    fetch(
-      `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page={currentPage}&limit=4&${category}&sortBy${sortBy}&order=${order}${search}`
-    ) // по убыванию сортировать
-      .then((res) => res.json())
-      .then((arr) => {
-        setItems(arr); //возвращает новые пиццы
-        setIsLoading(false); //после загрузки запрос завершился
-      });
-    window.scrollTo(0, 0); //js делаю скрол вверх
+    // fetch(
+    //   `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page={currentPage}&limit=4&${category}&sortBy${sortBy}&order=${order}${search}`
+    // ) // по убыванию сортировать
+    //   .then((res) => res.json())
+    //   .then((arr) => {
+    //     setItems(arr); //возвращает новые пиццы
+    //     setIsLoading(false); //после загрузки запрос завершился
+    //   });
+
+
+axios.get( `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page={currentPage}&limit=4&${category}&sortBy${sortBy}&order=${order}${search}`)
+
+.then((res)=>{  // указываю что нужно вытащить ответ от сервера
+setItems(res.data) // то что нужно хр-ся в дата там ответ от бэкенда
+})
+    
+
+
+
+window.scrollTo(0, 0); //js делаю скрол вверх
   }, [categoryId, sortType, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
   const pizzas = items.map((obj) => (
