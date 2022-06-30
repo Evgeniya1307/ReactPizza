@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "@reduxjs/toolkit";
+
 
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
@@ -8,11 +10,15 @@ import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 
 const Home = () => {
-
+const categoryId=useSelector(state=>state.filter.categoryId)// вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через .
+  
+  
+  
+  
   const {searchValue}=React.useContext(SearchContext)
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0);
+  //const [categoryId, setCategoryId] = React.useState(0);
   const[currentPage, setCurrentPage] = React.useState(1);
   const [sortType, setSortType] = React.useState({
     name: "популярности",
