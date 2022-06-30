@@ -8,18 +8,16 @@ const initialState = {
     }
 }
 
-export const filterSlice = createSlice({
+ const filterSlice = createSlice({
     name: 'filter',
     initialState,
-    initialState,
-
-    reducers: {
+ reducers: {
       setCategoryId(state,action){ //меняет категорию 
 state.categoryId = action.payload
       },
 
-      setSort(state, action) {
-        state.sort = action.payload;
+      setSort(state, action) { //меняем сорт
+        state.sort = action.payload;//payload хранит то что передаю в dispath()
       },
       setCurrentPage(state, action) {
         state.currentPage = action.payload;

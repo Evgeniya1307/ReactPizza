@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 
 function Sort() {
   const dispatch= useDispatch();// будет передвать в редакс действие
- const sort = useSelector(state=>state.filter.sort)//стейт из редюсера фильт вытащи свойство стор
+ const sort = useSelector((state)=>state.filter.sort)//стейт из редюсера фильт вытащи свойство стор
   
   //вытаскиваю пропс
   const [open, setOpen] = React.useState(false); // переключатель
@@ -19,8 +19,9 @@ function Sort() {
     { name: "алфавиту(ASC)", sort: "-title" }
   ];
 
-  const onClickListItem = (i) => {
-    onChangeSort(i); // когда выберешь какой то сорт
+  const onClickListItem = (obj) => {
+   dispatch()
+    // onChangeSort(i); // когда выберешь какой то сорт
     setOpen(false); // и скройся
   };
 
@@ -42,7 +43,7 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{value.name}</span>{" "}
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>{" "}
         {/*когда буду кликать будет скрываться или показываться*/}
       </div>
       {open && ( // будет показываться
@@ -59,7 +60,7 @@ function Sort() {
                   key={i}
                   onClick={() => onClickListItem(obj)}
                   className={
-                    value.sortProperty === obj.sortProperty ? "active" : ""
+                    sort.sortProperty === obj.sortProperty ? "active" : ""
                   }
                 >
                   {" "}

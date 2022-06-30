@@ -11,13 +11,14 @@ import { SearchContext } from "../App";
 
 const Home = () => {
   const dispatch = useDispatch();
-
   const categoryId = useSelector((state) => state.filter.categoryId); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
-
+  const sortType = useSelector((state) => state.filter.sort.sortProperty);
   const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
+  
+
   // const [sortType, setSortType] = React.useState({
   //   name: "популярности",
   //   sortProperty: "rating",
@@ -30,8 +31,8 @@ const Home = () => {
   React.useEffect(() => {
     setIsLoading(true); // перед загрузкой идёт имогу выбирать по филтрации пиццы
 
-    const sortBy = sortType.sortProperty.replace("-", ""); //replace("-") из св-ства удали - если будет
-    const order = sortType.sortProperty.includes("-") ? "asc" : "desc"; // проверка на если есть - то делай сортировку по возрастанию иначе по убыванию
+    const sortBy = sortType.replace("-", ""); //replace("-") из св-ства удали - если будет
+    const order = sortType.includes("-") ? "asc" : "desc"; // проверка на если есть - то делай сортировку по возрастанию иначе по убыванию
     const category = categoryId > 0 ? "category" : `category=${categoryId}`;
     const search = searchValue ? `&search="${searchValue}"` : "";
 
