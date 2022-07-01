@@ -1,6 +1,7 @@
 import React from "react";
+import qs from "qs";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryId } from "../redux/slices/filterSlice.jsx";
+import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice.jsx";
 import axios from "axios";
 
 import Skeleton from "../components/PizzaBlock/Sceleton";
@@ -12,14 +13,12 @@ import { SearchContext } from "../App";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const {categoryId, sort}  = useSelector((state) => state.filter); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
- const sortType = sort.sortProperty;
-  
+  const { categoryId, sort, currentPage } = useSelector(
+    (state) => state.filter ) // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
+
   const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [currentPage, setCurrentPage] = React.useState(1);
-  
 
   // const [sortType, setSortType] = React.useState({
   //   name: "популярности",
@@ -30,13 +29,17 @@ const Home = () => {
     dispatch(setCategoryId(id)); //метод меняеющий категорию
   };
 
+  const onChangePage = (page) => {
+    dispatch(setCurrentPage(page));
+  };
+
   React.useEffect(() => {
     setIsLoading(true); // перед загрузкой идёт имогу выбирать по филтрации пиццы
 
-    const sortBy = sortType.replace("-", ""); //replace("-") из св-ства удали - если будет
-    const order = sortType.includes("-") ? "asc" : "desc"; // проверка на если есть - то делай сортировку по возрастанию иначе по убыванию
-    const category = categoryId > 0 ? "category" : `category=${categoryId}`;
-    const search = searchValue ? `&search="${searchValue}"` : "";
+    const sortBy = sort.sortProperty.replace("-", ""); //replace("-") из св-ства удали - если будет
+    const order = sort.sortProperty.includes("-") ? "asc" : "desc"; // проверка на если есть - то делай сортировку по возрастанию иначе по убыванию
+    const category = categoryId > 0 ? `category=${categoryId}` : "";
+    const search = searchValue ? `&search=${searchValue}` : "";
 
     // fetch(
     //   `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page={currentPage}&limit=4&${category}&sortBy${sortBy}&order=${order}${search}`
@@ -47,21 +50,32 @@ const Home = () => {
     //     setIsLoading(false); //после загрузки запрос завершился
     //   });
 
+    axios
+      .get(
+        `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+      )
+      .then((res) => {
+        // указываю что нужно вытащить ответ от сервера
+        setItems(res.data); // то что нужно хр-ся в дата там ответ от бэкенда
+      setIsLoading(false)
+      });
 
-axios
-.get( 
-  `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page={currentPage}&limit=4&${category}&sortBy${sortBy}&order=${order}${search}`
-  )
-.then((res)=>{  // указываю что нужно вытащить ответ от сервера
-setItems(res.data) // то что нужно хр-ся в дата там ответ от бэкенда
-})
-    
+    window.scrollTo(0, 0); //js делаю скрол вверх
+  }, [categoryId, sort.sortProperty, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
-
-
-window.scrollTo(0, 0); //js делаю скрол вверх
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
-
+  
+  //будет отвечать запарсинг параметров связаных с фильтрацией пицц и вшивание их в адресную строку
+  React.useEffect(()=>{
+    const queryString = qs.stringify({ // если пришли параметры превращаю их в одну строчку
+      sortProperty: sort.sortProperty,
+      categoryId,
+      currentPage,
+    });
+  },  [categoryId, sort.sortProperty, currentPage])
+  
+  
+  
+  
   const pizzas = items.map((obj) => (
     <PizzaBlock
       key={obj.id}
@@ -86,7 +100,7 @@ window.scrollTo(0, 0); //js делаю скрол вверх
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-      <Pagination onChangePage={(number) => setCurrentPage(number)} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 };
