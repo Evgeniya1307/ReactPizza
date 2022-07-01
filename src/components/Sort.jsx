@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 import setSort from "../redux/slices/filterSlice.jsx"
 
   //для списка по популрности
-  const list = [
+  export const sortList = [
     { name: "популярности(DESC)", sortProperty: "rating" }, // убывание от большему к меньшему
     { name: "популярности(ASC)", sortProperty: "-rating" }, //-возрастанию от меньшему к большему
     { name: "цене(DESC)", sortProperty: "price" },
@@ -15,11 +15,10 @@ import setSort from "../redux/slices/filterSlice.jsx"
 
 
 
-function Sort() {
+export const  Sort=()=> {
   const dispatch= useDispatch();// будет передвать в редакс действие
  const sort = useSelector((state)=>state.filter.sort)//стейт из редюсера фильт вытащи свойство стор
-  
-  //вытаскиваю пропс
+ const sortRef = React.useRef();
   const [open, setOpen] = React.useState(false); // переключатель
 
 
@@ -28,6 +27,7 @@ function Sort() {
     // onChangeSort(i); // когда выберешь какой то сорт
     setOpen(false); // и скройся
   };
+
 
   return (
     <div className="sort">
@@ -51,34 +51,29 @@ function Sort() {
         {/*когда буду кликать будет скрываться или показываться*/}
       </div>
       {open && ( // будет показываться
-        <div className="sort__popup">
-          {" "}
+      <div className="sort__popup">
           {/*по цене популярности алфавиту*/}
           <ul>
-            {list.map(
-              (
-                obj,
-                i //obj там где const list
-              ) => (
-                <li
-                  key={i}
-                  onClick={() => onClickListItem(obj)}
+          {sortList.map((obj, i) => (
+            <li
+              key={i}
+              onClick={() => {
+                onClickListItem(obj);
+              }}
                   className={
                     sort.sortProperty === obj.sortProperty ? "active" : ""
                   }
                 >
-                  {" "}
                   {/*проверяю то что у родителя хранится в home сравниваю с тем что рендарю */}
                   {obj.name}
                 </li>
-              )
-            )}
+              ))}
           </ul>
         </div>
       )}
     </div>
   );
-}
+};
 
 export default Sort;
 

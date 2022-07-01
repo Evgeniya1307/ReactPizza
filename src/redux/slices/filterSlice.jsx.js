@@ -23,7 +23,12 @@ state.categoryId = action.payload;
       setCurrentPage(state, action) {
         state.currentPage = action.payload;
       },
-    },
+      setFilters(state, action) {
+        state.sort = action.payload.sort;
+        state.currentPage = Number(action.payload.currentPage);
+        state.categoryId =Number(action.payload.categoryId);
+  },
+    }
   });
 
 

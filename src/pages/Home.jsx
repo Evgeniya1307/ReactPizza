@@ -1,13 +1,13 @@
 import React from "react";
 import qs from "qs";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice.jsx";
+import { setCategoryId, setCurrentPage, setFilters } from "../redux/slices/filterSlice.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
-import Sort from "../components/Sort";
+import Sort, {sortList} from "../components/Sort";
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
@@ -37,8 +37,20 @@ const Home = () => {
 
 // проверяю есть в url эти параметры 
 React.useEffect(()=>{
-if(window.location.search)// если window.location.search есть то буду парсить из парпаметров и превращать в объект 
-},[])
+  if (window.location.search) {// если window.location.search есть то буду парсить из парпаметров и превращать в объект 
+    const params = qs.parse(window.location.search.substring(1));
+    const sort = sortList.find( // необходимо пробежаться по каждому сво-тву и найти в объекте sortProperty то что есть в params.sortProperty
+      (obj) => obj.sortProperty === params.sortProperty
+    );
+    dispatch(
+      setFilters({
+        ...params,
+        sort,
+      })
+    );
+    isSearch.current = true;
+  }
+}, []);
 
 
 
