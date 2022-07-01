@@ -3,6 +3,7 @@ import qs from "qs";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice.jsx";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
@@ -12,6 +13,7 @@ import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 
 const Home = () => {
+  const navigate = useNavigate(); //дай фу-ию из своего хука
   const dispatch = useDispatch();
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter ) // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
@@ -32,6 +34,18 @@ const Home = () => {
   const onChangePage = (page) => {
     dispatch(setCurrentPage(page));
   };
+
+// проверяю есть в url эти параметры 
+React.useEffect(()=>{
+if(window.location.search)// если window.location.search есть то буду парсить из парпаметров и превращать в объект 
+},[])
+
+
+
+
+
+
+
 
   React.useEffect(() => {
     setIsLoading(true); // перед загрузкой идёт имогу выбирать по филтрации пиццы
@@ -61,7 +75,7 @@ const Home = () => {
       });
 
     window.scrollTo(0, 0); //js делаю скрол вверх
-  }, [categoryId, sort.sortProperty, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
+  }, [categoryId, sort.sortProperty, currentPage, searchValue]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
   
   //будет отвечать запарсинг параметров связаных с фильтрацией пицц и вшивание их в адресную строку
@@ -71,6 +85,8 @@ const Home = () => {
       categoryId,
       currentPage,
     });
+
+    navigate(`?${queryString}`);
   },  [categoryId, sort.sortProperty, currentPage])
   
   
@@ -107,6 +123,6 @@ const Home = () => {
 
 export default Home;
 
-{
-  /*можно так а можно и если увереная что будут точно такие объекты по корече {...obj}/>) */
-}
+
+ // {...obj}/>) */
+

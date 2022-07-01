@@ -4,6 +4,7 @@ import styles from "./search.module.scss";
 import { SearchContext } from "../../App";
 import debounce from "lodash.debounce";
 
+
 const Search = () => {
   const [value, setValue] = React.useState(""); // отвечает за быстрое отображение из инпута данных
   const { setSearchValue } = React.useContext(SearchContext); //за поиск отвечает вытаскиваю и этот хук ссылается на эту переменную а в app я описала в провайдере значение 
@@ -16,7 +17,7 @@ const Search = () => {
     inputRef.current.focus(); //когда вожу в поиск и на крестик срабатывает
   };
 
-  const updateSearchValue = React.useCallback(
+  const updateSearchValue =React. useCallback(
     debounce((str) => {
       setSearchValue(str);
     }, 250),
