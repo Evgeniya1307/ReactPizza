@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext,useState, useEffect} from "react";
 import qs from "qs";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategoryId, setCurrentPage, setFilters } from "../redux/slices/filterSlice.jsx";
@@ -15,51 +15,34 @@ import { SearchContext } from "../App";
 const Home = () => {
   const navigate = useNavigate(); //дай фу-ию из своего хука
   const dispatch = useDispatch();
+  const isSearch=React.useRef(false)
+  const isMounted = React.useRef(false)
+ 
   const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter ) // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
+    (state) => state.filter
+  ); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
 
-  const { searchValue } = React.useContext(SearchContext);
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const { searchValue } = useContext(SearchContext);
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // const [sortType, setSortType] = React.useState({
   //   name: "популярности",
   //   sortProperty: "rating",
   // }); //тут хранится объект в нём есть св-тва sortType пере-ся в комепонент Sort.../>он выта-ся из велью и велью хранит в себе объект и это велью рендарю там где спан и {value.name}   хранится логика сортировки  будет делать изменение сортировки setSortType
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id)); //метод меняеющий категорию
-  };
+  const onChangeCategory = React.useCallback((idx) => {
+    dispatch(setCategoryId(idx));
+  }, []);
+ //метод меняеющий категорию
 
   const onChangePage = (page) => {
     dispatch(setCurrentPage(page));
   };
-
-// проверяю есть в url эти параметры 
-React.useEffect(()=>{
-  if (window.location.search) {// если window.location.search есть то буду парсить из парпаметров и превращать в объект 
-    const params = qs.parse(window.location.search.substring(1));
-    const sort = sortList.find( // необходимо пробежаться по каждому сво-тву и найти в объекте sortProperty то что есть в params.sortProperty
-      (obj) => obj.sortProperty === params.sortProperty
-    );
-    dispatch(
-      setFilters({
-        ...params,
-        sort,
-      })
-    );
-    isSearch.current = true;
-  }
-}, []);
-
-
-
-
-
-
-
-
-  React.useEffect(() => {
+ 
+ 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchPizzas =  () => {
     setIsLoading(true); // перед загрузкой идёт имогу выбирать по филтрации пиццы
 
     const sortBy = sort.sortProperty.replace("-", ""); //replace("-") из св-ства удали - если будет
@@ -67,6 +50,7 @@ React.useEffect(()=>{
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
+ 
     // fetch(
     //   `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page={currentPage}&limit=4&${category}&sortBy${sortBy}&order=${order}${search}`
     // ) // по убыванию сортировать
@@ -76,48 +60,72 @@ React.useEffect(()=>{
     //     setIsLoading(false); //после загрузки запрос завершился
     //   });
 
-    axios
-      .get(
+   
+    axios.get(
         `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
       )
       .then((res) => {
-        // указываю что нужно вытащить ответ от сервера
-        setItems(res.data); // то что нужно хр-ся в дата там ответ от бэкенда
-      setIsLoading(false)
-      });
+      setItems(res.data); // то что нужно хр-ся в дата там ответ от бэкенда
+      setIsLoading(false);
+    })
+  }
+ 
 
-    window.scrollTo(0, 0); //js делаю скрол вверх
-  }, [categoryId, sort.sortProperty, currentPage, searchValue]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
-  
-  //будет отвечать запарсинг параметров связаных с фильтрацией пицц и вшивание их в адресную строку
-  React.useEffect(()=>{
-    const queryString = qs.stringify({ // если пришли параметры превращаю их в одну строчку
-      sortProperty: sort.sortProperty,
-      categoryId,
-      currentPage,
-    });
+// Если изменили параметры и был первый рендер будет отвечать запарсинг параметров связаных с фильтрацией пицц и вшивание их в адресную строку
+useEffect(()=>{
+  if (isMounted.current) {
+  const queryString = qs.stringify({ // если пришли параметры превращаю их в одну строчку
+    sortProperty: sort.sortProperty,
+    categoryId,
+    currentPage,
+  });
 
-    navigate(`?${queryString}`);
-  },  [categoryId, sort.sortProperty, currentPage])
-  
-  
-  
-  
-  const pizzas = items.map((obj) => (
-    <PizzaBlock
-      key={obj.id}
-      title={obj.title}
-      price={obj.price}
-      image={obj.imageUrl}
-      sizes={obj.sizes}
-      types={obj.types}
-    />
-  )); // массив объектов переобразую в массив пицц
+  navigate(`?${queryString}`);
+}
+isMounted.current = true;
+}, [categoryId, sort.sortProperty, currentPage]);
 
-  const skeletons = [...new Array(6)].map((_, index) => (
-    <Skeleton key={index} />
-  ));
+
+// Если был первый рендер, то проверяем URl-параметры и сохраняем в редуксепроверяю есть в url эти параметры 
+useEffect(()=>{
+  if (window.location.search) {// если window.location.search есть то буду парсить из парпаметров и превращать в объект 
+    const params = qs.parse(window.location.search.substring(1));
+    
+    const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);// необходимо пробежаться по каждому сво-тву и найти в объекте sortProperty то что есть в params.sortProperty
+    
+    dispatch(
+      setFilters({
+        ...params,
+        sort,
+      }),
+    );
+    isSearch.current = true;
+  }
+}, []);
+
+
+// Если был первый рендер, то запрашиваем пиццы
+useEffect(() => {
+  window.scrollTo(0, 0);
+  if (!isSearch.current) {
+    fetchPizzas();
+  }
+  isSearch.current = false;
+}, [categoryId, sort.sortProperty, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
+
+
+ const pizzas = items.map((obj) => <PizzaBlock
+    key={obj.id}
+    title={obj.title}
+    price={obj.price}
+    image={obj.imageUrl}
+    sizes={obj.sizes}
+    types={obj.types}/>
+ )
+  // массив объектов переобразую в массив пицц
+
+ const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <div className="container">

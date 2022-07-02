@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import setSort from "../redux/slices/filterSlice.jsx"
+import {useEffect, useRef} from "react";
+import {setSort} from "../redux/slices/filterSlice.jsx"
 
   //для списка по популрности
   export const sortList = [
@@ -18,8 +19,8 @@ import setSort from "../redux/slices/filterSlice.jsx"
 export const  Sort=()=> {
   const dispatch= useDispatch();// будет передвать в редакс действие
  const sort = useSelector((state)=>state.filter.sort)//стейт из редюсера фильт вытащи свойство стор
- const sortRef = React.useRef();
-  const [open, setOpen] = React.useState(false); // переключатель
+ const sortRef = useRef();
+ const [open, setOpen] = React.useState(false); // переключатель
 
 
   const onClickListItem = (obj) => {
@@ -28,11 +29,19 @@ export const  Sort=()=> {
     setOpen(false); // и скройся
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.path.includes(sortRef.current)) {
+        setOpen(false);
+      }
+    };
+    document.body.addEventListener("click", handleClickOutside);
+    return () => document.body.removeEventListener("click", handleClickOutside);
+  }, []);
 
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
-        {" "}
         {/*сортировка по*/}
         <svg
           width="10"
@@ -47,7 +56,7 @@ export const  Sort=()=> {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sort.name}</span>{" "}
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
         {/*когда буду кликать будет скрываться или показываться*/}
       </div>
       {open && ( // будет показываться
