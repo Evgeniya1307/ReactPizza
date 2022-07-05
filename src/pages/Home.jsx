@@ -15,7 +15,7 @@ import { SearchContext } from "../App";
 const Home = () => {
   const navigate = useNavigate(); //дай фу-ию из своего хука
   const dispatch = useDispatch();
-  const isSearch=React.useRef(false)
+  const isSearch=React.useRef(false)// поиска пота нет по умолчанию ничего нет
   const isMounted = React.useRef(false)
  
   const { categoryId, sort, currentPage } = useSelector(
@@ -90,7 +90,7 @@ isMounted.current = true;
 // Если был первый рендер, то проверяем URl-параметры и сохраняем в редуксепроверяю есть в url эти параметры 
 useEffect(()=>{
   if (window.location.search) {// если window.location.search есть то буду парсить из парпаметров и превращать в объект 
-    const params = qs.parse(window.location.search.substring(1));
+    const params = qs.parse(window.location.search.substring(1));// передавать ? нельзя для этого пишу substring(1))
     
     const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);// необходимо пробежаться по каждому сво-тву и найти в объекте sortProperty то что есть в params.sortProperty
     
@@ -100,7 +100,7 @@ useEffect(()=>{
         sort,
       }),
     );
-    isSearch.current = true;
+    isSearch.current = true; // до того как вып-ся нижний useEffect заранее проверяем нужно ли поиск
   }
 }, []);
 
@@ -108,7 +108,7 @@ useEffect(()=>{
 // Если был первый рендер, то запрашиваем пиццы
 useEffect(() => {
   window.scrollTo(0, 0);
-  if (!isSearch.current) {
+  if (!isSearch.current) { //если сейчас нет поиска то делаю  fetchPizzas() запрос
     fetchPizzas();
   }
   isSearch.current = false;

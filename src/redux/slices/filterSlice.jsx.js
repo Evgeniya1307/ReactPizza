@@ -25,7 +25,7 @@ state.categoryId = action.payload;
       },
       setFilters(state, action) {
         state.sort = action.payload.sort;
-        state.currentPage = Number(action.payload.currentPage);
+        state.currentPage = Number(action.payload.currentPage);//  state когда тебе придёт currentPage то должен в action.payload.currentPage вшить то что есть  
         state.categoryId =Number(action.payload.categoryId);
   },
     }
