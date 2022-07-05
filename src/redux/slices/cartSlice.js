@@ -29,7 +29,7 @@ const cartSlice = createSlice({
       }
     },
     removeItem(state, action) {
-      state.items = state.items.filter((obj) => obj.id !== action.payload);
+      state.items = state.items.filter((obj) => obj.id !== action.payload);//найти объект у которого id не совпадает с action.payload я payload буду передавать id
     },
     clearItems(state) {
       state.items = [];
