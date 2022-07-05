@@ -16,7 +16,7 @@ const Home = () => {
   const navigate = useNavigate(); //дай фу-ию из своего хука
   const dispatch = useDispatch();
   const isSearch=React.useRef(false)// поиска пота нет по умолчанию ничего нет
-  const isMounted = React.useRef(false)
+  const isMounted = React.useRef(false) //пока-ет что первого рендера небыло приложение уже один раз отрисовалось 
  
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
@@ -74,7 +74,7 @@ const Home = () => {
 
 // Если изменили параметры и был первый рендер будет отвечать запарсинг параметров связаных с фильтрацией пицц и вшивание их в адресную строку
 useEffect(()=>{
-  if (isMounted.current) {
+  if (isMounted.current) { //если был 1 рендер  если это будет true то делай нижнюю информацию
   const queryString = qs.stringify({ // если пришли параметры превращаю их в одну строчку
     sortProperty: sort.sortProperty,
     categoryId,
@@ -111,7 +111,7 @@ useEffect(() => {
   if (!isSearch.current) { //если сейчас нет поиска то делаю  fetchPizzas() запрос
     fetchPizzas();
   }
-  isSearch.current = false;
+  isSearch.current = false; // так как ничего нету то false
 }, [categoryId, sort.sortProperty, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
 
