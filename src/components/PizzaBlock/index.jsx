@@ -1,15 +1,32 @@
 import React from "react";
+import {useDispatch, useSelector} from "react-redux"
+import{addItem} from "../../redux/slices/cartSlice"
 
-function PizzaBlock({ title, price, image, sizes, types }) {
+function PizzaBlock({ id,title, price, imageUrl, sizes, types }) {
+  const dispatch= useDispatch();
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   const typeNames = ["тонкое", "традиционное"];
 
+ const onClickAdd =()=>{
+  const item = { //сгенерирую объект и такой объект юудет хр-с в корзине товар который буду доб-ть показываю что я выбрала
+id, 
+title,//заголовок
+price, //стоимость
+imageUrl, // мне нужна картинка её вывести
+  type:activeType,
+  size:activeSize,
+} 
+dispatch(addItem(item))//вызвать и передать айтэм
+ }
+ 
+ 
+ 
   return (
     <div className="pizza-block-wrapper">
     <div className="pizza-block">
       <h4 className="pizza-block__title">{title}</h4>
-      <img className="pizza-block__image" src={image} alt="Pizza" />
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
 
       <div className="pizza-block__selector">
         <ul>
