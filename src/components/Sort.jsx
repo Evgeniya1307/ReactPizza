@@ -31,16 +31,16 @@ export const  Sort=()=> {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.path.includes(sortRef.current)) {
+      if (!event.path.includes(sortRef.current)) { // если в эвенте пас не было клика на наш сорт то скрываем окошко  
         setOpen(false);
       }
     };
-    document.body.addEventListener("click", handleClickOutside);
+    document.body.addEventListener("click", handleClickOutside); //  document.body.addEventListener("click", делает клик 
     return () => document.body.removeEventListener("click", handleClickOutside);
   }, []);
 
   return (
-    <div ref={sortRef} className="sort">
+    <div ref={sortRef} className="sort"> 
       <div className="sort__label">
         {/*сортировка по*/}
         <svg
