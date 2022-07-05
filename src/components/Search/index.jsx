@@ -7,24 +7,24 @@ import debounce from "lodash.debounce";
 
 const Search = () => {
   const [value, setValue] = React.useState(""); // отвечает за быстрое отображение из инпута данных
-  const { setSearchValue } = React.useContext(SearchContext); //за поиск отвечает вытаскиваю и этот хук ссылается на эту переменную а в app я описала в провайдере значение 
+  const {setSearchValue } = React.useContext(SearchContext); //за поиск отвечает вытаскиваю и этот хук ссылается на эту переменную а в app я описала в провайдере значение 
   //будет хра-ся ссылка на дом элементов моего интпута
   const inputRef = React.useRef(); // reactjs возьми свою логику сохрани в переменной inputRef
 
   const onClickClear = () => {
-    setSearchValue("");
-    setValue("");
-    inputRef.current.focus(); //когда вожу в поиск и на крестик срабатывает
+    setSearchValue(""); //очистка в контексте
+    setValue(""); //очистка локально
+    inputRef.current.focus(); //когда вожу в поиск и на крестик срабатывает правильный способ к обращению дом элемента к сылкам через use ref 
   };
 
-  const updateSearchValue =React. useCallback(
+  const updateSearchValue =React. useCallback( //сох-ла ссылку на функцию чтобы каждый раз не было перерисовки
     debounce((str) => {
-      setSearchValue(str);
-    }, 250),
+      setSearchValue(str);// из контекста сд-ть обновления то что есть в app
+    }, 250), //сделала её отложенной
     []
   );
 
-  const onChangeInput = (event) => {
+  const onChangeInput = (event) => { //буду верхнюю фун-ию выз-ть когда будет ме-с инпут
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
@@ -93,8 +93,11 @@ const Search = () => {
         className={styles.input}
         placeholder="Поиск пиццы..."
       />
-      {value && <GrClose onClick={onClickClear} className={styles.clearIcon} />}
-    </div>
+      {value && (
+         <GrClose onClick={onClickClear} className={styles.clearIcon} />
+  )}
+   
+         </div>
   );
 };
 export default Search;
