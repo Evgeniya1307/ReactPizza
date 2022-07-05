@@ -36,7 +36,7 @@ export const  Sort=()=> {
       }
     };
     document.body.addEventListener("click", handleClickOutside); //  document.body.addEventListener("click", делает клик то передай ниже фу-ию
-    return () => document.body.removeEventListener("click", handleClickOutside);
+    return () => document.body.removeEventListener("click", handleClickOutside);//если компонент уд-ся со стр то удаляю обработчик события с body на клик, т,е было размонтирование и вызови эту фу-ию
   }, []);
 
   return (
