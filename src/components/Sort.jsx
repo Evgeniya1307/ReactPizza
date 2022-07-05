@@ -30,12 +30,12 @@ export const  Sort=()=> {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event) => {  // храню ссылку внутри этой переменной
       if (!event.path.includes(sortRef.current)) { // если в эвенте пас не было клика на наш сорт то скрываем окошко  
         setOpen(false);
       }
     };
-    document.body.addEventListener("click", handleClickOutside); //  document.body.addEventListener("click", делает клик 
+    document.body.addEventListener("click", handleClickOutside); //  document.body.addEventListener("click", делает клик то передай ниже фу-ию
     return () => document.body.removeEventListener("click", handleClickOutside);
   }, []);
 
