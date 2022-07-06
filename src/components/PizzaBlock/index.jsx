@@ -4,9 +4,14 @@ import { addItem } from "../../redux/slices/cartSlice";
 
 function PizzaBlock({ id, title, price, image, sizes, types }) {
   const dispatch = useDispatch();
-  const addedCount = useSelector(state=>state.cart.items ) //addedCount -ко-во добавлений,вытаскиваю стейт,стейт карт айтемс
+  const cartItem = useSelector(state=>state.cart.items ) //addedCount -ко-во добавлений,вытаскиваю стейт,стейт карт айтемс,find -ищу пиццу если совпадают вытащю каунт
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
+  
+  const addedCount = cartItem ? cartItem.count : 0;// если в корзине нашёлся такой товар то вытащю коунт иначе передам 0
+  
+  
+  
   const typeNames = ["тонкое", "традиционное"];
 
   const onClickAdd = () => {
@@ -80,7 +85,7 @@ function PizzaBlock({ id, title, price, image, sizes, types }) {
               />
             </svg>
             <span>Добавить</span>
-            <i>0</i>
+            <i>{cartItem}</i>
           </button>
         </div>
       </div>
