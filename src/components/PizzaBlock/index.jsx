@@ -4,6 +4,7 @@ import { addItem } from "../../redux/slices/cartSlice";
 
 function PizzaBlock({ id, title, price, image, sizes, types }) {
   const dispatch = useDispatch();
+  const addedCount = useSelector(state=>state.cart.items ) //addedCount -ко-во добавлений,вытаскиваю стейт,стейт карт айтемс
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   const typeNames = ["тонкое", "традиционное"];
