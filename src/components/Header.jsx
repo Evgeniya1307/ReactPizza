@@ -53,7 +53,7 @@ const totalCount= items.reduce((sum,item)=> sum + item.count,0)// беру вс�
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{items.length}</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>
