@@ -20,7 +20,7 @@ const cartSlice = createSlice({
         });
       }
       state.totalPrice = state.items.reduce((sum, obj) => {
-        return obj.price * obj.count + sum; //изменила items и сразу вычеслила сумму
+        return obj.price * obj.count + sum; // когда доб-шь новую пиццу пробежись по массиву уз-ть сколько всего пицц и вывести их сумму  изменила items и сразу вычеслила сумму сколько стоит сколько раз добавили + предыдущ сумму
       }, 0);
     },
     minusItem(state, action) {

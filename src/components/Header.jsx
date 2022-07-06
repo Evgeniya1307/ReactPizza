@@ -5,6 +5,7 @@ import {useSelector} from "react-redux"
 
 function Header() {
 const {items,totalPrice}=useSelector(state =>state.cart)
+const totalCount= items.reduce((sum,item)=> sum + item.count,0)// беру все объект ыкоунта и сумирую их
 
   return (
     <div className="header">

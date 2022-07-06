@@ -4,7 +4,7 @@ import { addItem } from "../../redux/slices/cartSlice";
 
 function PizzaBlock({ id, title, price, image, sizes, types }) {
   const dispatch = useDispatch();
-  const cartItem = useSelector(state=>state.cart.items ) //addedCount -ко-во добавлений,вытаскиваю стейт,стейт карт айтемс,find -ищу пиццу если совпадают вытащю каунт
+  const cartItem = useSelector(state=>state.cart.items.find((obj)=>obj.id===id)) //addedCount -ко-во добавлений,вытаскиваю стейт,стейт карт айтемс,find -ищу пиццу если совпадают вытащю каунт
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   
