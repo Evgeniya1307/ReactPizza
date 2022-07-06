@@ -8,18 +8,19 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem(state, action) {
-      const findItem = state.items.find((obj) => obj.id === action.payload.id);
+    addItem(state, action) { // найди объект в массиве
+      const findItem = state.items.find((obj) => obj.id === action.payload.id);// если в stateitems был найден объект у которого равен action.payload.id если такой объект нашёлся то делаю коунт ++
+
       if (findItem) {
-        findItem.count++;
+        findItem.count++; //увеличь его в этом объекте на+1 и редакс сделает перерисовку
       } else {
-        state.items.push({
+        state.items.push({ //добавление продукта
           ...action.payload,
-          count: 1,
+          count: 1,// добавлен 1 продукт
         });
       }
       state.totalPrice = state.items.reduce((sum, obj) => {
-        return obj.price * obj.count + sum;
+        return obj.price * obj.count + sum; //изменила items и сразу вычеслила сумму
       }, 0);
     },
     minusItem(state, action) {
