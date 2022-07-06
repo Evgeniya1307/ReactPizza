@@ -13,7 +13,7 @@ const cartSlice = createSlice({
 
       if (findItem) {
         findItem.count++; //увеличь его в этом объекте на+1 и редакс сделает перерисовку
-      } else {
+      } else { // если не нашёлся то добавляю новый объект
         state.items.push({ //добавление продукта
           ...action.payload,
           count: 1,// добавлен 1 продукт
