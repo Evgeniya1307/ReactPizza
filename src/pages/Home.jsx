@@ -42,7 +42,7 @@ const Home = () => {
  
  
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchPizzas =  () => {
+  const fetchPizzas =  async () => {
     setIsLoading(true); // перед загрузкой идёт имогу выбирать по филтрации пиццы
 
     const sortBy = sort.sortProperty.replace("-", ""); //replace("-") из св-ства удали - если будет
@@ -61,16 +61,25 @@ const Home = () => {
     //   });
 
    
-    axios.get(
-        `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-      setItems(res.data); // то что нужно хр-ся в дата там ответ от бэкенда
-      setIsLoading(false);
-    })
-  }
+  //   await axios 
+  //   .get(
+  //       `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+  //     )
+  //     .then((res) => {
+  //     setItems(res.data); // то что нужно хр-ся в дата там ответ от бэкенда
+  //     setIsLoading(false);
+  //   })
+  // }
  
 
+
+  const res = await axios.get( // await дождись выполнения запроса axios.get()он внутри будет хранить промис
+    `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+    );
+  setItems(res.data);
+  setIsLoading(false);
+  window.scrollTo(0,0);
+  }
 
 // Если изменили параметры и был первый рендер будет отвечать запарсинг параметров связаных с фильтрацией пицц и вшивание их в адресную строку
 useEffect(()=>{
