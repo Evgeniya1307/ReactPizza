@@ -22,7 +22,7 @@ const Home = () => {
   const isSearch = React.useRef(false); // поиска пота нет по умолчанию ничего нет
   const isMounted = React.useRef(false); //пока-ет что первого рендера небыло приложение уже один раз отрисовалось
 
-  const items = useSelector((state) => state.pizza.items);
+  const {items,status} = useSelector((state) => state.pizza);
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
   ); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
@@ -64,6 +64,8 @@ const Home = () => {
     // await дождись выполнения запроса axios.get()он внутри будет хранить промис
     //   `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
     // );
+
+    
     dispatch(
       fetchPizzas({
         sortBy,
@@ -71,14 +73,13 @@ const Home = () => {
         category,
         search,
         currentPage,
-      })
-    ); // делаю запрос на бэкенд и сохраняю пиццы
-    //вернёт какая ошибка произошла в коде
+      }),
+    ); 
     window.scrollTo(0, 0);
   };
 
   // Если изменили параметры и был первый рендер будет отвечать запарсинг параметров связаных с фильтрацией пицц и вшивание их в адресную строку
-  useEffect(() => {
+ React.useEffect(() => {
     if (isMounted.current) {
       //если был 1 рендер  если это будет true то делай нижнюю информацию
       const queryString = qs.stringify({
@@ -142,9 +143,16 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-      {status===loading ? skeletons : pizzas}
-      </div>
+      {status === "error" ? (
+        <div className="content__error-info">
+          <h2>Произошла ошибка 😕</h2>
+          <p>К сожалению,не удалось получить питсы. Попробуйте повторить попытку позже.</p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading" ? skeletons : pizzas}
+        </div>
+      )}
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );

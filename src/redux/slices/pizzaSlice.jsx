@@ -38,7 +38,7 @@ setItems(state,action) {
 extraReducers: {
     [fetchPizzas.pending]: (state) => { // ожидание
     state.status = "loading";
-    state.items = []; // очистка в момент загрузки
+    state.items = []; //перед отправкой очистка в момент загрузки
     },
 
     [fetchPizzas.fulfilled]: (state, action) => { // успешно
