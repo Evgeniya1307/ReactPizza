@@ -3,13 +3,13 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
-import { clearItems } from "../redux/slices/cartSlice";
+import { clearItems, selectCart } from "../redux/slices/cartSlice";
 import CartEmpty from "../components/CartEmpty";
 //корзина
 
 const Cart = () => {
   const dispatch = useDispatch(); // в корзине нужен диспатч чтобы сделать очистку,добавление и удаление
-  const { totalPrice, items } = useSelector((state) => state.cart); // useSeltctor чтобы ввывести все пиццы
+  const { totalPrice, items } = useSelector(selectCart); // useSeltctor чтобы ввывести все пиццы
 
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 

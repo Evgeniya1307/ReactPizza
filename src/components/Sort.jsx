@@ -18,8 +18,9 @@ import {setSort} from "../redux/slices/filterSlice.jsx"
 
 export const  Sort=()=> {
   const dispatch= useDispatch();// будет передвать в редакс действие
- const sort = useSelector((state)=>state.filter.sort)//стейт из редюсера фильт вытащи свойство стор
+ const sort = useSelector(selectSort)// передала фу-ию соз-ую в filterslice стейт из редюсера фильт вытащи свойство стор
  const sortRef = useRef();// ссылка на домэлемент
+ 
  const [open, setOpen] = React.useState(false); // переключатель
 
 
