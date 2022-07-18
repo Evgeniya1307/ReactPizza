@@ -58,9 +58,10 @@ state.items=[]; // чтобы невернулись старые пиццы
     
 
 
-
+export const selecPizzaData=(state)=> state.pizza; //мне надо получить и пиццу и статус
 
 
 export const{setItems}=pizzaSlice.actions; // вытаскиваю
+
 export default pizzaSlice.reducer;
 
