@@ -15,10 +15,11 @@ import Categories from "../components/Categories";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 import { fetchPizzas } from "../redux/slices/pizzaSlice.jsx";
-
+ 
 const Home = () => {
   const navigate = useNavigate(); //дай фу-ию из своего хука
   const dispatch = useDispatch();
+  
   const isSearch = React.useRef(false); // поиска пота нет по умолчанию ничего нет
   const isMounted = React.useRef(false); //пока-ет что первого рендера небыло приложение уже один раз отрисовалось
 
