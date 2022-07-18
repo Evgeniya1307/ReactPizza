@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setCategoryId,
   setCurrentPage,
-  setFilters,
+  setFilters, selectFilter
 } from "../redux/slices/filterSlice.jsx";
 import { useNavigate } from "react-router-dom";
 
@@ -13,8 +13,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import Sort, { sortList } from "../components/Sort";
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination";
-import { SearchContext } from "../App";
-import { fetchPizzas, selecPizzaData } from "../redux/slices/pizzaSlice.jsx";
+import { fetchPizzas, selecPizzaData} from "../redux/slices/pizzaSlice.jsx";
  
 const Home = () => {
   const navigate = useNavigate(); //дай фу-ию из своего хука
@@ -24,10 +23,8 @@ const Home = () => {
   const isMounted = React.useRef(false); //пока-ет что первого рендера небыло приложение уже один раз отрисовалось
 
   const {items,status} = useSelector(selecPizzaData);//фун-ия создана в pizzaSlice
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  ); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
-  const { searchValue } = useContext(SearchContext);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
+  
 
   // const [sortType, setSortType] = React.useState({
   //   name: "популярности",

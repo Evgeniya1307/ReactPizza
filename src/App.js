@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { createContext, useState } from "react";
 
 import Header from "./components/Header";
 import "./scss/app.scss";
@@ -10,15 +9,10 @@ import NotFound from "./pages/NotFound";
 
 
 
-export const SearchContext = createContext();//создала контекст
-
 
  function App() {
-  const [searchValue,setSearchValue]=useState("")//стейт который хранит поле поиска
-
   return (
     <div className="wrapper">
-    <SearchContext.Provider value={{searchValue,setSearchValue}}>
     <Header /> 
     <div className="content">
    
@@ -30,9 +24,7 @@ export const SearchContext = createContext();//создала контекст
           <Route path="*" element={<NotFound />} />
           {/* "*"это значит если один из этих роутеров не подойдёт то это последний что подошло  NotFound/>*/}
         </Routes>
-      </div>
-      </SearchContext.Provider>
-       
+      </div>   
       </div>
    
   );

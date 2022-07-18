@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    categoryId: 0,
+   searchValue: '',
+  categoryId: 0,
    currentPage:1,
     sort:{
       name: 'по популярности',
@@ -15,6 +16,10 @@ const initialState = {
  reducers: {
       setCategoryId(state,action){ //меняет категорию 
 state.categoryId = action.payload;
+      },
+
+      setSearchValue(state,action){ 
+state.searchValue = action.payload;
       },
 
       setSort(state, action) { //меняем сорт
@@ -31,9 +36,12 @@ state.categoryId = action.payload;
     }
   });
 
-export const selectSort = (state)=> state.filter.sort;
 
-  export const { setCategoryId,setSort,setCurrentPage , setFilters} = filterSlice.actions;
+  export const selectFilter=(state)=>state.filter;//для фильтрации
+  export const selectSort = (state)=> state.filter.sort;// для сортировки
+  
+
+  export const { setCategoryId,setSort,setCurrentPage , setFilters, setSearchValue} = filterSlice.actions;
   export default filterSlice.reducer;
 
 
