@@ -5,6 +5,7 @@ import "./scss/app.scss";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart.jsx";
 import NotFound from "./pages/NotFound";
+import FullPizza from "./pages/FullPizza";
 
 
 
@@ -21,7 +22,8 @@ import NotFound from "./pages/NotFound";
           <Route path="/" element={<Home />} />
           {/*если указан "/" то рендери Home*/}
           <Route path="/cart" element={<Cart />} /> {/* */}
-          <Route path="*" element={<NotFound />} />
+<Route path="/pizza/:id" element = {<FullPizza/>}/>  
+  <Route path="*" element={<NotFound />} />
           {/* "*"это значит если один из этих роутеров не подойдёт то это последний что подошло  NotFound/>*/}
         </Routes>
       </div>   
