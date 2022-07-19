@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import qs from "qs";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -117,6 +117,8 @@ const Home = () => {
     getPizzas();
   }, [categoryId, sort.sortProperty, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
+
+
   const pizzas = items.map((obj) => (
     <PizzaBlock
       key={obj.id}
@@ -125,7 +127,7 @@ const Home = () => {
       image={obj.imageUrl}
       sizes={obj.sizes}
       types={obj.types}
-    />
+    /> 
   ));
   // массив объектов переобразую в массив пицц
 

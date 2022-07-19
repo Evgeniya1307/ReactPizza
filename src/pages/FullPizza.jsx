@@ -1,5 +1,5 @@
 import React from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import axios from 'axios';
 
 
@@ -8,6 +8,7 @@ import axios from 'axios';
 const FullPizza = () => {
     const [pizza, setPizza]=React.useState();
     const {id} = useParams();
+    const navigate =useNavigate()//этот хук вернёт фу-ию который позволит делать переходы если пиццы нет то перекинуть человека на главную
 
     React.useEffect(() => { // внутри со-ю асинхрон фу-ию и её вызываю
 async function fetchPizza(){
@@ -22,8 +23,8 @@ fetchPizza();
 
 },[])
 
-if(pizza) { // проверка нужно ли из пиццы вытащить что то
-    return "Загрузка...";
+if(!pizza) { // проверка нужно ли из пиццы вытащить что то
+    return "Загрузка..."; // если пицца пустая undefined то покажи загрузку
 }
 
   return (
