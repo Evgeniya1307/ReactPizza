@@ -5,7 +5,7 @@ import Cart from "./pages/Cart.jsx";
 import NotFound from "./pages/NotFound";
 import FullPizza from "./pages/FullPizza";
 import MainLayout from "./layouts/MainLayout";
-import React from "react";
+
 
 
  function App() {
