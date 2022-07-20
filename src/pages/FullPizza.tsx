@@ -16,7 +16,10 @@ async function fetchPizza(){
     const {data} = await axios.get("https://62b41f5aa36f3a973d2c669d.mockapi.io/items/"+id)
 setPizza(pizza);
 }catch(error){
-    alert("ошибка при получении пиццы")
+    //когда будет catch
+    alert("ошибка при получении пиццы")// сначала alert а потом переход на главную
+    navigate('/') 
+    
 }
 }
 fetchPizza();
@@ -36,4 +39,4 @@ if(!pizza) { // проверка нужно ли из пиццы вытащит�
   )
 }
 
-export default FullPizza
+export default FullPizza; 

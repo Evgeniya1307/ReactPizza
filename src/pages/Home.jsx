@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setCategoryId,
   setCurrentPage,
-  setFilters, selectFilter
+  setFilters,
+  selectFilter,
 } from "../redux/slices/filterSlice.jsx";
 import { useNavigate } from "react-router-dom";
 
@@ -13,18 +14,18 @@ import PizzaBlock from "../components/PizzaBlock";
 import Sort, { sortList } from "../components/Sort";
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination";
-import { fetchPizzas, selecPizzaData} from "../redux/slices/pizzaSlice.jsx";
- 
+import { fetchPizzas, selecPizzaData } from "../redux/slices/pizzaSlice.jsx";
+
 const Home = () => {
   const navigate = useNavigate(); //дай фу-ию из своего хука
   const dispatch = useDispatch();
-  
+
   const isSearch = React.useRef(false); // поиска пота нет по умолчанию ничего нет
   const isMounted = React.useRef(false); //пока-ет что первого рендера небыло приложение уже один раз отрисовалось
 
-  const {items,status} = useSelector(selecPizzaData);//фун-ия создана в pizzaSlice
-  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
-  
+  const { items, status } = useSelector(selecPizzaData); //фун-ия создана в pizzaSlice
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
 
   // const [sortType, setSortType] = React.useState({
   //   name: "популярности",
@@ -33,7 +34,7 @@ const Home = () => {
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
-  }
+  };
   //метод меняеющий категорию
 
   const onChangePage = (number) => {
@@ -63,7 +64,6 @@ const Home = () => {
     //   `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
     // );
 
-    
     dispatch(
       fetchPizzas({
         sortBy,
@@ -71,13 +71,13 @@ const Home = () => {
         category,
         search,
         currentPage,
-      }),
-    ); 
+      })
+    );
     window.scrollTo(0, 0);
   };
 
   // Если изменили параметры и был первый рендер будет отвечать запарсинг параметров связаных с фильтрацией пицц и вшивание их в адресную строку
- React.useEffect(() => {
+  React.useEffect(() => {
     if (isMounted.current) {
       //если был 1 рендер  если это будет true то делай нижнюю информацию
       const queryString = qs.stringify({
@@ -117,8 +117,6 @@ const Home = () => {
     getPizzas();
   }, [categoryId, sort.sortProperty, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
-
-
   const pizzas = items.map((obj) => (
     <PizzaBlock
       key={obj.id}
@@ -127,7 +125,7 @@ const Home = () => {
       image={obj.imageUrl}
       sizes={obj.sizes}
       types={obj.types}
-    /> 
+    />
   ));
   // массив объектов переобразую в массив пицц
 
@@ -146,7 +144,10 @@ const Home = () => {
       {status === "error" ? (
         <div className="content__error-info">
           <h2>Произошла ошибка 😕</h2>
-          <p>К сожалению,не удалось получить питсы. Попробуйте повторить попытку позже.</p>
+          <p>
+            К сожалению,не удалось получить питсы. Попробуйте повторить попытку
+            позже.
+          </p>
         </div>
       ) : (
         <div className="content__items">
