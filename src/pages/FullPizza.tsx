@@ -6,7 +6,11 @@ import axios from 'axios';
 //инфа по пицце
 
 const FullPizza: React.FC = () => { // это тип из react это функционал,компонент
-    const [pizza, setPizza]=React.useState();
+    const [pizza, setPizza]=React.useState<{ // содержит определён,тип данных
+        imageUrl: string;
+        title: string;
+        price: number;
+      }>();
     const {id} = useParams();
     const navigate =useNavigate()//этот хук вернёт фу-ию который позволит делать переходы если пиццы нет то перекинуть человека на главную
 
@@ -24,17 +28,17 @@ setPizza(data);
 }
 fetchPizza();
 
-},[])
+},[]);
 
 if(!pizza) { // проверка нужно ли из пиццы вытащить что то
     return <>Загрузка...</>; //возвращаю фрагмент придёт реактовский элемент если пицца пустая undefined то покажи загрузку
 }
 
   return (
-    <div className='container'>
-    <img src = {pizza.imageUrl}/>
- <h2>{pizza.title}</h2>
-<h4>{pizza.price}₽</h4>
+    <div className="container">
+      <img src={pizza.imageUrl} />
+      <h2>{pizza.title}</h2>
+      <h4>{pizza.price} ₽</h4>
     </div>
   )
 }
