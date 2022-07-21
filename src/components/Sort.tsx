@@ -1,7 +1,8 @@
-import { FC, memo, MouseEvent, useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { MouseEvent, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux/es/exports";
 import {setSort} from "../redux/slices/filterSlice.jsx.js"
-import { Sort as SortType, SortPropertyEnum } from ""
+import { Sort as SortType, SortPropertyEnum } from "../redux/filter/types"
+import React from "react";
 
 // создала свой тип объект содержащий name,sortProperty
 type SortItem = {
@@ -12,17 +13,18 @@ type SortItem = {
 type PopupClick = MouseEvent<HTMLBodyElement> & {
   path: Node[];
 };
-type TSortPopupProps = {
-  value: TSort;
+type SortPopupProps = {
+  value: SortType;
+};
 
   //для списка по популрности
   export const sortList: SortItem[]  = [
-    { name: "популярности(DESC)", sortProperty: "rating" }, // убывание от большему к меньшему
-    { name: "популярности(ASC)", sortProperty: "-rating" }, //-возрастанию от меньшему к большему
-    { name: "цене(DESC)", sortProperty: "price" },
-    { name: "цене(ASC)", sortProperty: "-price" },
-    { name: "алфавиту(DESC)", sortProperty: "title" },
-    { name: "алфавиту(ASC)", sortProperty: "-title" }
+    { name: 'популярности (DESC)', sortProperty: SortPropertyEnum.RATING_DESC}, // убывание от большему к меньшему
+    { name: 'популярности (ASC)', sortProperty: SortPropertyEnum.RATING_ASC }, //-возрастанию от меньшему к большему
+    {  name: 'цене (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
+    {  name: 'цене (ASC)', sortProperty: SortPropertyEnum.PRICE_ASC  },
+    { name: 'алфавиту (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC },
+    { name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC  }
   ];
 
 
@@ -45,7 +47,7 @@ type TSortPopupProps = {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {  // храню ссылку внутри этой переменной
+    const handleClickOutside = (event: any) => {  // храню ссылку внутри этой переменной
       const _event = event as PopupClick;
       if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
@@ -73,8 +75,8 @@ type TSortPopupProps = {
         </svg>
         <b>Сортировка по:</b>
         <span onClick={() => setOpen(!open)}>{value.name}</span>
-        {/*когда буду кликать будет скрываться или показываться*/}
       </div>
+        {/*когда буду кликать будет скрываться или показываться*/}
       {open && ( // будет показываться
       <div className="sort__popup">
           {/*по цене популярности алфавиту*/}

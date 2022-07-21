@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
-import Sort, { sortList } from "../components/Sort";
-import Categories from "../components/Categories";
+import {Sort,sortList } from "../components/Sort";
+import {Categories} from "../components/Categories";
 import Pagination from "../components/Pagination";
 import { fetchPizzas, selecPizzaData } from "../redux/slices/pizzaSlice.jsx";
 
