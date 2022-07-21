@@ -1,31 +1,41 @@
 import React from "react";
+import { ChangeEvent } from "react";
 import { GrClose } from "react-icons/gr";
 import styles from "./search.module.scss";
-import { setSearchValue } from "../../redux/slices/filterSlice.jsx";
+import { setSearchValue } from "../../redux/slices/filterSlice.jsx.js";
 import debounce from "lodash.debounce";
-import {useSelector, useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
-const Search = () => {
-  const dispatch = useDispatch()
-  const [value, setValue] = React.useState(""); // отвечает за быстрое отображение из инпута данных
+const Search: React.FC = () => {
+  const dispatch = useDispatch();
+  const [value, setValue] = React.useState<string>(""); // отвечает за быстрое отображение из инпута данных
 
   //будет хра-ся ссылка на дом элементов моего интпута
-  const inputRef = React.useRef(); // reactjs возьми свою логику сохрани в переменной inputRef
+  const inputRef = React.useRef<HTMLInputElement>(null); // reactjs возьми свою логику сохрани в переменной inputRef
 
   const onClickClear = () => {
     dispatch(setSearchValue(""));
     setValue(""); //очистка локально
-    inputRef.current.focus(); //когда вожу в поиск и на крестик срабатывает правильный способ к обращению дом элемента к сылкам через use ref 
+   
+    //предотвратить вызов какой то функции
+    // if (inputRef.current) {
+    //   inputRef.current.focus();
+    // }
+    //с помощью оператора (?) опциональной последовательности
+    inputRef.current?.focus();
   };
+  //когда вожу в поиск и на крестик срабатывает правильный способ к обращению дом элемента к сылкам через use ref
 
-  const updateSearchValue =React. useCallback( //сох-ла ссылку на функцию чтобы каждый раз не было перерисовки
-    debounce((str) => {
-     dispatch(setSearchValue(""));// из контекста сд-ть обновления то что есть в app
+  const updateSearchValue = React.useCallback(
+    //сох-ла ссылку на функцию чтобы каждый раз не было перерисовки
+    debounce((str: string) => {
+      dispatch(setSearchValue(str)); // из контекста сд-ть обновления то что есть в app
     }, 150), //сделала её отложенной
     []
   );
 
-  const onChangeInput = (event) => { //буду верхнюю фун-ию выз-ть когда будет ме-с инпут
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //буду верхнюю фун-ию выз-ть когда будет ме-с инпут
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
@@ -94,11 +104,8 @@ const Search = () => {
         className={styles.input}
         placeholder="Поиск пиццы..."
       />
-      {value && (
-         <GrClose onClick={onClickClear} className={styles.clearIcon} />
-  )}
-   
-         </div>
+      {value && <GrClose onClick={onClickClear} className={styles.clearIcon} />}
+    </div>
   );
 };
 export default Search;

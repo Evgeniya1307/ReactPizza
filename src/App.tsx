@@ -5,23 +5,21 @@ import Cart from "./pages/Cart.jsx";
 import NotFound from "./pages/NotFound";
 import FullPizza from "./pages/FullPizza";
 import MainLayout from "./layouts/MainLayout";
+import React from "react";
 
-
-
- function App() {
+function App() {
   return (
-      <Routes>
-          {/*логика react route */}
-          <Route path="/" element={<MainLayout />}>
-          <Route path="" element={<Home />} /> 
-          {/*если указан "" то рендери главная страницаHome*/}
-          <Route path="cart" element={<Cart />} /> 
-<Route path="/pizza/:id" element = {<FullPizza/>}/>  
-  <Route path="*" element={<NotFound />} />
-          {/* "*"это значит если один из этих роутеров не подойдёт то это последний что подошло  NotFound/>*/}
+    <Routes>
+      {/*логика react route */}
+      <Route path="/" element={<MainLayout />}>
+        <Route path="" element={<Home />} />
+        {/*если указан "" то рендери главная страницаHome*/}
+        <Route path="cart" element={<Cart />} />
+        <Route path="/pizza/:id" element={<FullPizza />} />
+        <Route path="*" element={<NotFound />} />
+        {/* "*"это значит если один из этих роутеров не подойдёт то это последний что подошло  NotFound/>*/}
       </Route>
-          </Routes> 
-
+    </Routes>
   );
 }
 

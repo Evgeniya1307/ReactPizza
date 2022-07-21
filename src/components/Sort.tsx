@@ -1,7 +1,7 @@
 import { MouseEvent, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux/es/exports";
 import {setSort} from "../redux/slices/filterSlice.jsx.js"
-import { Sort as SortType, SortPropertyEnum } from "../redux/filter/types"
+import { Sort as TSort, SortPropertyEnum } from "../redux/filter/types"
 import React from "react";
 
 // создала свой тип объект содержащий name,sortProperty
@@ -13,8 +13,8 @@ type SortItem = {
 type PopupClick = MouseEvent<HTMLBodyElement> & {
   path: Node[];
 };
-type SortPopupProps = {
-  value: SortType;
+type TSortPopupProps = {
+  value: TSort;
 };
 
   //для списка по популрности
@@ -30,13 +30,10 @@ type SortPopupProps = {
 
 
 
-  export const Sort: React.FC<SortPopupProps> = React.memo(({ value }) => {
+  export const Sort: React.FC<TSortPopupProps> = React.memo(({ value }) => {
   const dispatch= useDispatch();// будет передвать в редакс действие
+    // ref не разрешает хранить undefined-по умолчанию нужно типизировать useRef вот так: <HTMLDivElement>(null)
   const sortRef = useRef<HTMLDivElement>(null);//null так ref ожидает получить или null или какой тоэлемент  ссылка на домэлемент
- 
-
-
-
  const [open, setOpen] = React.useState(false); // переключатель
 
 
@@ -97,7 +94,7 @@ type SortPopupProps = {
   );
 });
 
-
+export default Sort;
 
 //&& если правая сторона true иди ко второй и верни
 //5&&6 вернёт 6 //0&&3 вернёт 0
