@@ -11,7 +11,7 @@ const {items,totalPrice}=useSelector(selectCart) // передала назва�
 const location = useLocation();
 const isMounted = React.useRef(false);
 
-const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);// беру все объект ыкоунта и сумирую их
+const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);// беру все объект коунта и сумирую их
 
 React.useEffect(() => {
   if (isMounted.current) {

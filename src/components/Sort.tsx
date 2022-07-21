@@ -1,7 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {useEffect, useRef} from "react";
-import {selectSort, setSort} from "../redux/slices/filterSlice.jsx"
+import {selectSort, setSort} from "../redux/slices/filterSlice.jsx.js"
+
+
+// создала свой тип 
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
 
   //для списка по популрности
   export const sortList = [
