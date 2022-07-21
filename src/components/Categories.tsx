@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-//отдельный тип для пропсов
+//отдельный тип для пропсов наши пропсы сод-с внутри объекта
 type CategoriesProps = {
   value: number;
   onChangeCategory: (idx: number) => void;
@@ -14,7 +14,7 @@ export const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChan
   return (
     <div className="categories">
       <ul>
-        {categories.map((categoryName, i) => (
+        {categories.map((categoryName, i) => ( //value это у меня число я его српвниваю с i а i это число
          <li key={i} onClick={() => onChangeCategory(i)} className={value === i ? 'active' : ''}>
          {categoryName}
        </li>
