@@ -6,7 +6,7 @@ import {
   setCurrentPage,
   setFilters,
   selectFilter,
-} from "../redux/slices/filterSlice.jsx.js";
+} from "../redux/slices/filterSlice.js";
 import { useNavigate } from "react-router-dom";
 
 import Skeleton from "../components/PizzaBlock/Sceleton";

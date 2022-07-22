@@ -1,5 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
+//типизирую тип который является структурой слайсов
+type CartItem ={
+  id:string,
+  title:string,
+  price:number,
+  imageUrl:string,
+  type:number,
+  size:number;
+}
+
+interfaceCartSliceState{
+  total
+}
+
 const initialState = {
   totalPrice: 0,
   items: [], //товары 

@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux/es/exports";
-import {setSort} from "../redux/slices/filterSlice.jsx.js"
+import {setSort} from "../redux/slices/filterSlice.js"
 import { Sort as TSort, SortPropertyEnum } from "../redux/filter/types"
 import React from "react";
 
@@ -45,7 +45,7 @@ type TSortPopupProps = {
 
   useEffect(() => {
     const handleClickOutside = (event:any) => {  // храню ссылку внутри этой переменной
-      const _event = event as PopupClick;
+      const _event = event as PopupClick;//переменная является этим типом
       if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
       }
