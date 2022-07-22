@@ -1,4 +1,12 @@
+import { RootState } from './../store';
 import { createSlice } from "@reduxjs/toolkit";
+
+
+//типизирую
+interface FilterSliceState {// стейт чистой фильтрации
+
+}
+
 
 const initialState = {
    searchValue: '',
@@ -37,8 +45,8 @@ state.searchValue = action.payload;
   });
 
 
-  export const selectFilter=(state)=>state.filter;//для фильтрации
-  export const selectSort = (state)=> state.filter.sort;// для сортировки
+  export const selectFilter=(state:RootState)=>state.filter;//для фильтрации
+  export const selectSort = (state:RootState)=>state.filter.sort;// для сортировки
   
 
   export const { setCategoryId,setSort,setCurrentPage , setFilters, setSearchValue} = filterSlice.actions;

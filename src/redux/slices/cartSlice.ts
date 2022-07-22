@@ -1,5 +1,5 @@
-import { CartSliceState } from './../cart/types';
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from '../store';
 
 
 
@@ -57,8 +57,8 @@ const cartSlice = createSlice({
     },
   },
 });
-export const selectCart = (state) => state.cart;
-export const selectCartItemById = (id:string) => (state) => state.cart.items.find((obj) => obj.id === id) // фу-ия получает id и эта фу-ия вернёт др,фу-ию 
+export const selectCart = (state:RootState) => state.cart;
+export const selectCartItemById = (id:string) => (state:RootState) => state.cart.items.find((obj) => obj.id === id) // фу-ия получает id и эта фу-ия вернёт др,фу-ию 
 
 export const { addItem, removeItem, minusItem, clearItems } = cartSlice.actions;
 export default cartSlice.reducer;
