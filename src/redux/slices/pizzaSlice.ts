@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
+import { RootState } from "../store";
 
 
 
@@ -20,6 +21,11 @@ export const fetchPizzas = createAsyncThunk(
     }
   );
 
+  //типизирую
+  interface PizzaSliceState {
+    items: ; // какие у пиццы типы обычно берётся ответ у бэкенда и он преобразрвывается в отдельгны тип
+    status: 'loading' | 'succes' | 'error' ; 
+  }
  
 
 const initialState={
@@ -58,7 +64,7 @@ state.items=[]; // чтобы невернулись старые пиццы
     
 
 
-export const selecPizzaData=(state)=> state.pizza; //мне надо получить и пиццу и статус
+export const selecPizzaData=(state:RootState)=> state.pizza; //мне надо получить и пиццу и статус
 
 
 export const{setItems}=pizzaSlice.actions; // вытаскиваю

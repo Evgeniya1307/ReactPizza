@@ -1,14 +1,23 @@
+import { type } from '@testing-library/user-event/dist/type';
 import { RootState } from './../store';
 import { createSlice } from "@reduxjs/toolkit";
 
 
+type Sort = {
+  name: string,
+      sortProperty: 'rating' | 'title' | 'price' | '-rating' | '-title'|'-price' ;
+}
+
 //типизирую
 interface FilterSliceState {// стейт чистой фильтрации
-
+  searchValue:string,
+  categoryId: number,
+  currentPage:number,
+  sort: Sort,
 }
 
 
-const initialState = {
+const initialState: FilterSliceState = {
    searchValue: '',
   categoryId: 0,
    currentPage:1,
