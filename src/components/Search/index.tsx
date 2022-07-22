@@ -35,7 +35,7 @@ const Search: React.FC = () => {
   );
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => { // есть value и он яв-ся строчкой. ChangeEvent-изменение инпута
-    //буду верхнюю фун-ию выз-ть когда будет ме-с инпут
+    //буду верхнюю фун-ию выз-ть когда будет ме-ся инпут
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };

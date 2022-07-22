@@ -10,7 +10,7 @@ type SortItem = {
   sortProperty: SortPropertyEnum;
 };
 
-type PopupClick = MouseEvent<HTMLBodyElement> & {
+type PopupClick = MouseEvent<HTMLBodyElement> & {//есть дополнительное сво-во
   path: Node[];
 };
 type TSortPopupProps = {
@@ -44,7 +44,7 @@ type TSortPopupProps = {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {  // храню ссылку внутри этой переменной
+    const handleClickOutside = (event:any) => {  // храню ссылку внутри этой переменной
       const _event = event as PopupClick;
       if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
