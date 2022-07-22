@@ -6,7 +6,7 @@ import {
   setCurrentPage,
   setFilters,
   selectFilter,
-} from "../redux/slices/filterSlice.jsx";
+} from "../redux/slices/filterSlice.jsx.js";
 import { useNavigate } from "react-router-dom";
 
 import Skeleton from "../components/PizzaBlock/Sceleton";
@@ -16,7 +16,7 @@ import {Categories} from "../components/Categories";
 import Pagination from "../components/Pagination";
 import { fetchPizzas, selecPizzaData } from "../redux/slices/pizzaSlice.jsx";
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate(); //дай фу-ию из своего хука
   const dispatch = useDispatch();
 
@@ -32,13 +32,13 @@ const Home = () => {
   //   sortProperty: "rating",
   // }); //тут хранится объект в нём есть св-тва sortType пере-ся в комепонент Sort.../>он выта-ся из велью и велью хранит в себе объект и это велью рендарю там где спан и {value.name}   хранится логика сортировки  будет делать изменение сортировки setSortType
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = (index:number) => {
+    dispatch(setCategoryId(index));
   };
   //метод меняеющий категорию
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page:number) => {
+    dispatch(setCurrentPage(page));
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,6 +65,7 @@ const Home = () => {
     // );
 
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         sortBy,
         order,
@@ -117,18 +118,8 @@ const Home = () => {
     getPizzas();
   }, [categoryId, sort.sortProperty, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
-  const pizzas = items.map((obj) => (
-    <PizzaBlock
-      key={obj.id}
-      title={obj.title}
-      price={obj.price}
-      image={obj.imageUrl}
-      sizes={obj.sizes}
-      types={obj.types}
-    />
-  ));
+  const pizzas = items.map((obj:any) => <PizzaBlock key={obj.id} {...obj} />);  
   // массив объектов переобразую в массив пицц
-
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
@@ -138,7 +129,7 @@ const Home = () => {
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         {/*// в онклик передаю фу-ию  когда ты сработаешь onChangeCategory={(i) то вызови мне  setCategoryId=(i) */}
-        <Sort />
+        <Sort value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (

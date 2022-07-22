@@ -13,11 +13,11 @@ const Search: React.FC = () => {
   //будет хра-ся ссылка на дом элементов моего интпута
   const inputRef = React.useRef<HTMLInputElement>(null); // reactjs возьми свою логику сохрани в переменной inputRef
 
-  const onClickClear = () => {
+  const onClickClear = (event: React.MouseEvent<SVGSVGElement>) => { // событие клика
     dispatch(setSearchValue(""));
     setValue(""); //очистка локально
    
-    //предотвратить вызов какой то функции
+    //предотвратить вызов какой то функции или вытаскивания данных
     // if (inputRef.current) {
     //   inputRef.current.focus();
     // }
@@ -34,7 +34,7 @@ const Search: React.FC = () => {
     []
   );
 
-  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => { // есть value и он яв-ся строчкой. ChangeEvent-изменение инпута
     //буду верхнюю фун-ию выз-ть когда будет ме-с инпут
     setValue(event.target.value);
     updateSearchValue(event.target.value);

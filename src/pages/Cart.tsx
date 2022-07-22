@@ -5,13 +5,15 @@ import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
 import { clearItems, selectCart } from "../redux/slices/cartSlice";
 import CartEmpty from "../components/CartEmpty";
+
+
 //корзина
 
-const Cart = () => {
+const Cart: React.FC= () => {
   const dispatch = useDispatch(); // в корзине нужен диспатч чтобы сделать очистку,добавление и удаление
   const { totalPrice, items } = useSelector(selectCart); // useSeltctor чтобы ввывести все пиццы
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
   const onClickClear = () => {
     if (window.confirm("Очистить корзину?")) {
@@ -102,7 +104,7 @@ const Cart = () => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((item) => (
+          {items.map((item: any) => (
             <CartItem key={item.id} {...item} />
           ))}
         </div>

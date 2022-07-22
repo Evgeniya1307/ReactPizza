@@ -4,7 +4,7 @@ import React from 'react';
 //отдельный тип для пропсов наши пропсы сод-с внутри объекта
 type CategoriesProps = {
   value: number;
-  onChangeCategory: (idx: number) => void;
+  onChangeCategory: (index: number) => void;// void -моя фу-ия не требует возвращения какого то значения
 };
 
 
