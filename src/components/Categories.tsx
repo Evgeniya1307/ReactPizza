@@ -25,5 +25,6 @@ export const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChan
   );
 });
 
+export default Categories;
 
 //если я рендерю список и если он статичный т,е не мен-ся то могу в key передавать индекс key={i}

@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from '../store';
 
 
 
 //типизирую тип который является структурой слайсов
-type CartItem ={
+export type CartItem ={
   id:string,
   title:string,
   price:number,
   imageUrl:string,
-  type:number,
+  type:string,
   size:number;
   count:number;
 }
@@ -27,7 +27,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem(state, action) { // найди объект в массиве
+    addItem(state, action:PayloadAction<CartItem>) { // найди объект в массиве корзина будет добавлять CartItem
       const findItem = state.items.find((obj) => obj.id === action.payload.id);// если в stateitems был найден объект у которого равен action.payload.id если такой объект нашёлся то делаю коунт ++
 
       if (findItem) {

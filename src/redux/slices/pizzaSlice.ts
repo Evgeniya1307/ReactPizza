@@ -21,14 +21,24 @@ export const fetchPizzas = createAsyncThunk(
     }
   );
 
+type Pizza = {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+  rating: number
+}
+
   //типизирую
   interface PizzaSliceState {
-    items: ; // какие у пиццы типы обычно берётся ответ у бэкенда и он преобразрвывается в отдельгны тип
+    items: Pizza[] ; // массив пицц какие у пиццы типы обычно берётся ответ у бэкенда и он преобразрвывается в отдельгны тип
     status: 'loading' | 'succes' | 'error' ; 
   }
  
 
-const initialState={
+const initialState: PizzaSliceState={
 items:[],
 status:'loading',
 };

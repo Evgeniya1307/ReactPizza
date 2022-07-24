@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
+import { addItem, CartItem, selectCartItemById } from "../../redux/slices/cartSlice";
 import {Link} from "react-router-dom";
 import {TCartItem} from "../../redux/cart/types";
 
@@ -33,7 +33,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const typeNames = ["тонкое", "традиционное"];
   
   const onClickAdd = () => {
-    const item : TCartItem = {
+    const item : CartItem = {
       //сгенерирую объект и такой объект юудет хр-с в корзине товар который буду доб-ть показываю что я выбрала
       id,
       title, //заголовок
@@ -43,7 +43,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
       size: sizes[activeSize],
      count:0,
     };
-    dispatch(addItem(item)); //вызвать и передать айтэм
+    dispatch(addItem(item));; //вызвать и передать айтэм
     
   };
 
