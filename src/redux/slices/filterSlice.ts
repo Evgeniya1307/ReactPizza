@@ -1,6 +1,5 @@
-import { type } from '@testing-library/user-event/dist/type';
 import { RootState } from './../store';
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 type Sort = {
@@ -46,9 +45,19 @@ state.searchValue = action.payload;
         state.currentPage = action.payload;
       },
       setFilters(state, action:PayloadAction<FilterSliceState>) {// ожидает получить все св-ва которые есть в стейте из за этого передаю <FilterSliceState>
+      if(Object.keys(action.payload).length){
         state.sort = action.payload.sort;
         state.currentPage = Number(action.payload.currentPage);//  state когда тебе придёт currentPage то должен в action.payload.currentPage вшить то что есть  
         state.categoryId =Number(action.payload.categoryId);
+      }else {
+        state.currentPage = 1;
+        state.categoryId = 0;
+        state.sort = {
+          name: 'популярности',
+          sortProperty: 'rating',
+        }
+      }
+        
   },
     }
   });
