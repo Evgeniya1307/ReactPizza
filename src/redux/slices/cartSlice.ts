@@ -42,7 +42,7 @@ const cartSlice = createSlice({
         return obj.price * obj.count + sum; // когда доб-шь новую пиццу пробежись по массиву уз-ть сколько всего пицц и вывести их сумму  изменила items и сразу вычеслила сумму сколько стоит сколько раз добавили + предыдущ сумму
       }, 0);
     },
-    minusItem(state, action) {
+    minusItem(state, action:PayloadAction<string>) {// id это стринг
       const findItem = state.items.find((obj) => obj.id === action.payload);
       if (findItem) {
         findItem.count--;
