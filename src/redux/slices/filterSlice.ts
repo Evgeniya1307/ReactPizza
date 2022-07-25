@@ -31,21 +31,21 @@ const initialState: FilterSliceState = {
     name: 'filter',
     initialState,
  reducers: {
-      setCategoryId(state,action){ //меняет категорию 
+      setCategoryId(state,action:PayloadAction<number>){ //меняет категорию 
 state.categoryId = action.payload;
       },
 
-      setSearchValue(state,action){ 
+      setSearchValue(state,action:PayloadAction<string>){ 
 state.searchValue = action.payload;
       },
 
-      setSort(state, action) { //меняем сорт
+      setSort(state, action:PayloadAction<Sort>) { //меняем сорт
         state.sort = action.payload;//payload хранит то что передаю в dispath()
       },
-      setCurrentPage(state, action) {
+      setCurrentPage(state, action:PayloadAction<number>) {
         state.currentPage = action.payload;
       },
-      setFilters(state, action) {
+      setFilters(state, action:PayloadAction<FilterSliceState>) {// ожидает получить все св-ва которые есть в стейте из за этого передаю <FilterSliceState>
         state.sort = action.payload.sort;
         state.currentPage = Number(action.payload.currentPage);//  state когда тебе придёт currentPage то должен в action.payload.currentPage вшить то что есть  
         state.categoryId =Number(action.payload.categoryId);

@@ -42,13 +42,13 @@ const cartSlice = createSlice({
         return obj.price * obj.count + sum; // когда доб-шь новую пиццу пробежись по массиву уз-ть сколько всего пицц и вывести их сумму  изменила items и сразу вычеслила сумму сколько стоит сколько раз добавили + предыдущ сумму
       }, 0);
     },
-    minusItem(state, action:PayloadAction<string>) {// id это стринг
+    minusItem(state, action:PayloadAction<string>) {// id это стринг и когда передаю говорю уменьши какое то id
       const findItem = state.items.find((obj) => obj.id === action.payload);
       if (findItem) {
         findItem.count--;
       }
     },
-    removeItem(state, action) {
+    removeItem(state, action:PayloadAction<string>) {
       state.items = state.items.filter((obj) => obj.id !== action.payload);//найти объект у которого id не совпадает с action.payload я payload буду передавать id
     },
     clearItems(state) {
