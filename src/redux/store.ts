@@ -20,4 +20,4 @@ export type RootState = ReturnType<typeof store.getState>; // RootState я гл�
 
  //превращаю js функцию в тип  и сохрани её в переменную
 export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();// тип для диспатча

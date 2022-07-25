@@ -1,3 +1,4 @@
+import { type } from '@testing-library/user-event/dist/type';
  import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
 
@@ -19,7 +20,7 @@ export const fetchPizzas = createAsyncThunk<Pizza[], Record<string, string>>("pi
   );
 
   //отдельные ключи Перечисления TypeScript
-  enum Status{
+  export enum Status{
     LOADING='loading',
     SUCCES = 'succes',
     ERROR = 'error',
@@ -49,6 +50,10 @@ type Pizza = {
     status: Status.LOADING, // loading | success | error
   };
 
+
+  export type SearchPizzaParams ={// содержит в себе ключи 
+
+  }
 
 const pizzaSlice = createSlice({
 name: 'pizza',
