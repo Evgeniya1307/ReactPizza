@@ -1,22 +1,31 @@
-import { CartItem } from './cartSlice';
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
-import { RootState } from "../store";
+
+
 
 
 
 //типизирую асинхронный экшен
-export const fetchPizzas = createAsyncThunk<CartItem[], Record<string, string>>("pizza/fetchPizzasStatus",
+export const fetchPizzas = createAsyncThunk<Pizza[], Record<string, string>>("pizza/fetchPizzasStatus",
     // прикручиваем логику редакса через thunkApi
     async (params) => {
       const { sortBy, order, category, search, currentPage } = params;
-      const { data } = await axios.get<CartItem[]>( // вернёт массив CartItem
+      const { data } = await axios.get<Pizza[]>( // вернёт массив Pizza[]
         `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
       );
 
       return data ;// обьясняю что такое дата это яв-ся массивом каких то пицц
     }
   );
+
+  //отдельные ключи Перечисления TypeScript
+  enum Status{
+    LOADING='loading',
+    SUCCES = 'succes',
+    ERROR = 'error',
+
+  }
+
 
 type Pizza = {
   id: string;
@@ -35,18 +44,17 @@ type Pizza = {
   }
  
 
-const initialState: PizzaSliceState={
-items:[],
-status:'loading',
-};
+  const initialState: PizzaSliceState = {
+    items: [],
+    status: Status.LOADING, // loading | success | error
+  };
 
 
 const pizzaSlice = createSlice({
 name: 'pizza',
 initialState,
-
 reducers: {
-setItems(state,action) {
+setItems(state,action: PayloadAction<Pizza[]>) {
     state.items = action.payload;
 },
 },
