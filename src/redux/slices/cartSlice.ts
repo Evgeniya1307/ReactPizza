@@ -21,8 +21,10 @@ interface CartSliceState{
 
 const initialState: CartSliceState= {
   totalPrice: 0,
-  items: [], //товары 
-};
+  items:JSON.parse(localStorage.getItem('cart')
+}, //товары , если есть в корзине что-то то отрендери, если ничего то верни пустой массив
+
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,

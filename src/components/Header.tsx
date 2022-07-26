@@ -9,7 +9,7 @@ import { selectCart } from "../redux/slices/cartSlice";
 function Header() {
 const {items,totalPrice}=useSelector(selectCart) // передала название фу-ию которую соз-ла в cartslice
 const location = useLocation();
-const isMounted = React.useRef(false);
+const isMounted = React.useRef(false); 
 const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);// беру все объект коунта и сумирую их
 
 React.useEffect(() => {// следи если мен-ся корзина то делай перерисовку
@@ -17,7 +17,7 @@ React.useEffect(() => {// следи если мен-ся корзина то д
     const json = JSON.stringify(items);// беру конст превщращаю items в строчку 
     localStorage.setItem('cart', json);
   }
-  isMounted.current = true;
+  isMounted.current = true;// если current true то делать верхний код
 }, [items]);// меняется items
 
 
