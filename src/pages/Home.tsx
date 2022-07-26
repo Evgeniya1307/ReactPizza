@@ -2,26 +2,26 @@ import React from "react";
 import {useSelector } from "react-redux";
 import {
   setCategoryId,
-  setCurrentPage,
-  selectFilter,
-} from "../redux/slices/filterSlice.js";
+  setCurrentPage,} from "../redux/filter/filterSlice.js";
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
 import {Sort} from "../components/Sort";
 import {Categories} from "../components/Categories";
 import Pagination from "../components/Pagination";
-import { fetchPizzas} from "../redux/slices/pizzaSlice.jsx";
+import { fetchPizzas, SearchPizzaParams} from "../redux/slices/pizzaSlice.jsx";
 import {selectPizzaData } from "../redux/slices/selectors"
 import { useAppDispatch } from "../redux/store.js";
+import { selectFilter } from "../redux/filter/selectors.js";
+import { type } from "@testing-library/user-event/dist/type/index.js";
+
 
 
 
 const Home: React.FC = () => {
-  const dispatch = useAppDispatch();
-
-
-  const { items, status } = useSelector(selectPizzaData); //фун-ия создана в pizzaSlice
+ const dispatch = useAppDispatch();
   const { categoryId, sort, currentPage, searchValue }= useSelector(selectFilter); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
+const { items, status } = useSelector(selectPizzaData); //фун-ия создана в pizzaSlice
+ 
 
   // const [sortType, setSortType] = React.useState({
   //   name: "популярности",
@@ -89,27 +89,26 @@ const Home: React.FC = () => {
   // }, [categoryId, sort.sortProperty, currentPage]);
 
   // Если был первый рендер, то проверяем URl-параметры и сохраняем в редуксепроверяю есть в url эти параметры
-  // useEffect(() => {
-  //   if (!window.location.search) {
-   
-    // если window.location.search есть то буду парсить из парпаметров и превращать в объект
-  //     const params = qs.parse(window.location.search.substring(1)); // передавать ? нельзя для этого пишу substring(1))
-  //     const sort = sortList.find(
-  //       (obj) => obj.sortProperty === params.sortProperty
+ // React.useEffect(() => {
+   // if (window.location.search) {
+   //если window.location.search есть то буду парсить из парпаметров и превращать в объект
+      //const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams; // передавать ? нельзя для этого пишу substring(1))
+    // const sort = sortList.find((obj) => obj.sortProperty === params.sortBy
   //     ); // необходимо пробежаться по каждому сво-тву и найти в объекте sortProperty то что есть в params.sortProperty
 
-  //     dispatch(
-  //       setFilters({
-  //         ...params,
-  //         sort,
-  //       })
-  //     );
-  //     isSearch.current = true; // до того как вып-ся нижний useEffect заранее проверяем нужно ли поиск
-  //   }
-  // }, []);
-
+ // dispatch(setFilters({
+    //        searchValue: params.search,
+    //        categoryId: Number(params.category),
+    //        currentPage: Number (params.currentPage),
+    // тут сказана если не придёт undefined передай sort иначе передавай по популярности
+    //        sort:sort || sortList[0],
+    //       })
+    //     );
+    //     isSearch.current = true;
+    //   }
+    // }, []);
   // Если был первый рендер, то запрашиваем пиццы
-  React.useEffect(() => {
+ React.useEffect(() => {
     //если сейчас нет поиска то делаю  fetchPizzas() запрос
     getPizzas();
   }, [categoryId, sort.sortProperty, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц

@@ -1,3 +1,4 @@
+import { Sort } from './../filter/types';
 import { type } from '@testing-library/user-event/dist/type';
  import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
@@ -5,9 +6,16 @@ import axios from "axios"
 
 
 
+export type SearchPizzaParams ={// содержит в себе ключи 
+  sortBy:string; 
+  order:string; 
+  category:string; 
+  search:string; 
+  currentPage:string;
+  };
 
 //типизирую асинхронный экшен
-export const fetchPizzas = createAsyncThunk<Pizza[], Record<string, string>>("pizza/fetchPizzasStatus",
+export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>("pizza/fetchPizzasStatus",
     // прикручиваем логику редакса через thunkApi
     async (params) => {
       const { sortBy, order, category, search, currentPage } = params;
@@ -51,9 +59,7 @@ type Pizza = {
   };
 
 
-  export type SearchPizzaParams ={// содержит в себе ключи 
-
-  }
+  
 
 const pizzaSlice = createSlice({
 name: 'pizza',

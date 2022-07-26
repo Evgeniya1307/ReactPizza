@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux/es/exports";
-import {setSort} from "../redux/slices/filterSlice.js"
+import {setSort} from "../redux/filter/filterSlice.js"
 import { Sort as TSort, SortPropertyEnum } from "../redux/filter/types"
 import React from "react";
 
@@ -18,7 +18,7 @@ type TSortPopupProps = {
 };
 
   //для списка по популрности
-  export const sortList: SortItem[]  = [
+  export const sortList: SortItem[]  = [ // значение сортировки
     { name: 'популярности (DESC)', sortProperty: SortPropertyEnum.RATING_DESC}, // убывание от большему к меньшему
     { name: 'популярности (ASC)', sortProperty: SortPropertyEnum.RATING_ASC }, //-возрастанию от меньшему к большему
     {  name: 'цене (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
