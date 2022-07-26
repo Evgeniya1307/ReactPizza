@@ -12,7 +12,7 @@ import { fetchPizzas, SearchPizzaParams} from "../redux/slices/pizzaSlice.jsx";
 import {selectPizzaData } from "../redux/slices/selectors"
 import { useAppDispatch } from "../redux/store.js";
 import { selectFilter } from "../redux/filter/selectors.js";
-import { type } from "@testing-library/user-event/dist/type/index.js";
+
 
 
 
@@ -20,7 +20,7 @@ import { type } from "@testing-library/user-event/dist/type/index.js";
 const Home: React.FC = () => {
  const dispatch = useAppDispatch();
   const { categoryId, sort, currentPage, searchValue }= useSelector(selectFilter); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
-const { items, status } = useSelector(selectPizzaData); //фун-ия создана в pizzaSlice
+const { items, status } = useSelector(selectPizzaData); //фун-ия создана в pizzaSlice показывает что меняется в фильтрации
  
 
   // const [sortType, setSortType] = React.useState({
@@ -30,7 +30,7 @@ const { items, status } = useSelector(selectPizzaData); //фун-ия созда
 
   const onChangeCategory = React.useCallback((index:number) => {
     dispatch(setCategoryId(index));
-  },[]);
+  },[]);// cоздайся при первом рендере как useEffect и больше не пересаздаётся сохрани её в памяти и когда я скажу дай onChangeCategory дай мне ссылку на самый первый рендеринг 
   //метод меняеющий категорию
 
   const onChangePage = (page:number) => {
@@ -111,7 +111,7 @@ const { items, status } = useSelector(selectPizzaData); //фун-ия созда
  React.useEffect(() => {
     //если сейчас нет поиска то делаю  fetchPizzas() запрос
     getPizzas();
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
+  }, [categoryId, sort.sortProperty, searchValue, currentPage, getPizzas]); //массив зависимости следит если изменения иди в бэкенд и делается запрос на получение новых пицц
 
   const pizzas = items.map((obj:any) => <PizzaBlock key={obj.id} {...obj} />);  
   // массив объектов переобразую в массив пицц

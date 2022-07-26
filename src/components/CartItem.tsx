@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
 import { TCartItem } from "../redux/cart/types";
+import clsx from "clsx";
 
 //типизирую
 type CartItemProps = {
@@ -56,7 +57,10 @@ const CartItem: React.FC<CartItemProps> = ({
           <button
             disabled={count === 1}// если каунт равен 1 то тогда дизебли кнопку
             onClick={onClickMinus}
-            className="button button--outline button--circle cart__item-count-minus"
+            className={clsx(
+              "button button--outline button--circle cart__item-count-minus",
+              { "cart__item-count-minus--disabled": count === 1 }
+            )}
           >
             <svg
               width="10"

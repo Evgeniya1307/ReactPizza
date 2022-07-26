@@ -12,7 +12,7 @@ const location = useLocation();
 const isMounted = React.useRef(false);
 const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);// беру все объект коунта и сумирую их
 
-React.useEffect(() => {
+React.useEffect(() => {// следи если мен-ся корзина то делай перерисовку
   if (isMounted.current) {
     const json = JSON.stringify(items);
     localStorage.setItem('cart', json);

@@ -7,11 +7,9 @@ type CategoriesProps = {
   onChangeCategory: (index: number) => void;// void -моя фу-ия не требует возвращения какого то значения
 };
 
-
-
 const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-export const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChangeCategory }) => { //value -активный индекс храню в велью а onСhangeCategory меняет стейт
+export const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChangeCategory }) => { //value -активный индекс храню в велью а onСhangeCategory меняет стейт, react.memo гарантирует если пропсы не прменялись перерерисовку не делаю
   return (
     <div className="categories">
       <ul>

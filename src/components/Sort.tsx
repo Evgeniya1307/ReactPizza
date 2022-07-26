@@ -28,8 +28,6 @@ type TSortPopupProps = {
   ];
 
 
-
-
   export const Sort: React.FC<TSortPopupProps> = React.memo(({ value }) => {
   const dispatch= useDispatch();// будет передвать в редакс действие
     // ref не разрешает хранить undefined-по умолчанию нужно типизировать useRef вот так: <HTMLDivElement>(null)
