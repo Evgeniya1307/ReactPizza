@@ -14,11 +14,11 @@ const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0)
 
 React.useEffect(() => {// следи если мен-ся корзина то делай перерисовку
   if (isMounted.current) {
-    const json = JSON.stringify(items);
+    const json = JSON.stringify(items);// беру конст превщращаю items в строчку 
     localStorage.setItem('cart', json);
   }
   isMounted.current = true;
-}, [items]);
+}, [items]);// меняется items
 
 
   return (
