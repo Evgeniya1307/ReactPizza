@@ -1,8 +1,7 @@
 import { getCartFromLs } from '../../utils/getCartFromLs';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from '../store';
 import { calcTotalPrice } from '../../utils/calcTotalPrice';
-import { CartItem, CartSliceState } from './types';
+import { TCartItem, CartSliceState } from './types';
 
 const initialState: CartSliceState = getCartFromLs();
 
@@ -26,7 +25,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem(state, action: PayloadAction<CartItem>) { // найди объект в массиве корзина будет добавлять CartItem
+    addItem(state, action: PayloadAction<TCartItem>) { // найди объект в массиве корзина будет добавлять TCartItem
       const findItem = state.items.find((obj) => obj.id === action.payload.id);// если в stateitems был найден объект у которого равен action.payload.id если такой объект нашёлся то делаю коунт ++
 
       if (findItem) {

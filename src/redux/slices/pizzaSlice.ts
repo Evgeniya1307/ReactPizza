@@ -1,65 +1,43 @@
-import { Sort } from './../filter/types';
-import { type } from '@testing-library/user-event/dist/type';
- import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import axios from "axios"
+import {  createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { Pizza, PizzaSliceState, Status } from "./types";
+import { fetchPizzas } from "./asyncActions";
 
+const initialState: PizzaSliceState = {
+  items: [],
+  status: Status.LOADING,
+};
 
-
-
-export type SearchPizzaParams ={// содержит в себе ключи 
-  sortBy:string; 
-  order:string; 
-  category:string; 
-  search:string; 
-  currentPage:string;
-  };
+// export type SearchPizzaParams ={// содержит в себе ключи 
+//   sortBy:string; 
+//   order:string; 
+//   category:string; 
+//   search:string; 
+//   currentPage:string;
+//   };
 
 //типизирую асинхронный экшен
-export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>("pizza/fetchPizzasStatus",
-    // прикручиваем логику редакса через thunkApi
-    async (params) => {
-      const { sortBy, order, category, search, currentPage } = params;
-      const { data } = await axios.get<Pizza[]>( // вернёт массив Pizza[]
-        `https://62b41f5aa36f3a973d2c669d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-      );
 
-      return data ;// обьясняю что такое дата это яв-ся массивом каких то пицц
-    }
-  );
 
   //отдельные ключи Перечисления TypeScript
-  export enum Status{
-    LOADING='loading',
-    SUCCES = 'succes',
-    ERROR = 'error',
+  // export enum Status{
+  //   LOADING='loading',
+  //   SUCCES = 'succes',
+  //   ERROR = 'error',
 
-  }
+  // }
 
 
-type Pizza = {
-  id: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  sizes: number[];
-  types: number[];
-  rating: number
-}
+// type Pizza = {
+//   id: string;
+//   title: string;
+//   price: number;
+//   imageUrl: string;
+//   sizes: number[];
+//   types: number[];
+//   rating: number
+// }
 
-  //типизирую
-  interface PizzaSliceState {
-    items: Pizza[] ; // массив пицц какие у пиццы типы обычно берётся ответ у бэкенда и он преобразрвывается в отдельгны тип
-    status: 'loading' | 'succes' | 'error' ; 
-  }
  
-
-  const initialState: PizzaSliceState = {
-    items: [],
-    status: Status.LOADING, // loading | success | error
-  };
-
-
-  
 
 const pizzaSlice = createSlice({
 name: 'pizza',

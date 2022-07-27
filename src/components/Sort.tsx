@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux/es/exports";
-import {setSort} from "../redux/filter/filterSlice.js"
+import {setSort} from "../redux/filter/filterSlice"
 import { Sort as TSort, SortPropertyEnum } from "../redux/filter/types"
 import React from "react";
 

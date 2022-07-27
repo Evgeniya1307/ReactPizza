@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItemById } from "../../redux/cart/selectors";
 import {Link} from "react-router-dom";
-import {CartItem} from "../../redux/cart/types";
-import{addItem} from "../../redux/cart/cartSlice"
+import {TCartItem} from "../../redux/cart/types";
+import{addItem} from "../../redux/cart/cartSlice";
 
 //типизирую
 type PizzaBlockProps = {
@@ -34,7 +34,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const typeNames = ["тонкое", "традиционное"];
   
   const onClickAdd = () => {
-    const item : CartItem = {
+    const item : TCartItem = {
       //сгенерирую объект и такой объект юудет хр-с в корзине товар который буду доб-ть показываю что я выбрала
       id,
       title, //заголовок

@@ -2,17 +2,21 @@ import React from "react";
 import {useSelector } from "react-redux";
 import {
   setCategoryId,
-  setCurrentPage,} from "../redux/filter/filterSlice.js";
+  setCurrentPage,} from "../redux/filter/filterSlice";
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import PizzaBlock from "../components/PizzaBlock";
 import {Sort} from "../components/Sort";
 import {Categories} from "../components/Categories";
 import Pagination from "../components/Pagination";
-import { fetchPizzas, SearchPizzaParams} from "../redux/slices/pizzaSlice.jsx";
+import { fetchPizzas} from "../redux/slices/asyncActions";
 import {selectPizzaData } from "../redux/slices/selectors"
-import { useAppDispatch } from "../redux/store.js";
-import { selectFilter } from "../redux/filter/selectors.js";
+import { useAppDispatch } from "../redux/store";
+import { selectFilter } from "../redux/filter/selectors";
 
+// это динамический импорт - тоесть отдельный chunk С помощью его можно подгрузить отдельно js кусок кода (ленивая подгрузка )
+// import("../utils/math").then(math => {
+//   console.log(math.add(555, 111));
+// });
 
 
 
@@ -22,6 +26,7 @@ const Home: React.FC = () => {
   const { categoryId, sort, currentPage, searchValue }= useSelector(selectFilter); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить
 const { items, status } = useSelector(selectPizzaData); //фун-ия создана в pizzaSlice показывает что меняется в фильтрации
  
+
 
   // const [sortType, setSortType] = React.useState({
   //   name: "популярности",

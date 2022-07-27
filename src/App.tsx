@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import "./scss/app.scss";
 import Home from "./pages/Home";
-import Cart from "./pages/Cart.jsx";
+import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 import FullPizza from "./pages/FullPizza";
 import MainLayout from "./layouts/MainLayout";
-import React from "react";
+
 
 function App() {
   return (

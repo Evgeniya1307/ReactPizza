@@ -1,7 +1,7 @@
 import React from "react";
 import { GrClose } from "react-icons/gr";
 import styles from "./search.module.scss";
-import { setSearchValue } from "../../redux/filter/filterSlice.js";
+import { setSearchValue } from "../../redux/filter/filterSlice";
 import debounce from "lodash.debounce";
 import { useDispatch } from "react-redux";
 

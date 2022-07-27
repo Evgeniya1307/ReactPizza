@@ -1,7 +1,7 @@
-import React from "react";
+import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../redux/cart/cartSlice";
-import { CartItem } from "../redux/cart/types";
+import { TCartItem } from "../redux/cart/types";
 import clsx from "clsx";
 
 //типизирую
@@ -16,7 +16,7 @@ type CartItemProps = {
 };
 
 //это то что что я выбрала и отобразилось в корзине
-const CartItem: React.FC<CartItemProps> = ({
+const CartItem: FC<CartItemProps> = ({
   id,
   title,
   type,
@@ -30,7 +30,7 @@ const CartItem: React.FC<CartItemProps> = ({
     dispatch(
       addItem({
         id,
-      } as CartItem)
+      } as TCartItem)
     );
   };
   const onClickMinus = () => {
