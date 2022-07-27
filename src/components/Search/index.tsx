@@ -1,5 +1,4 @@
 import React from "react";
-import { ChangeEvent } from "react";
 import { GrClose } from "react-icons/gr";
 import styles from "./search.module.scss";
 import { setSearchValue } from "../../redux/filter/filterSlice.js";

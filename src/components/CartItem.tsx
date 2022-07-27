@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
-import { TCartItem } from "../redux/cart/types";
+import { addItem, minusItem, removeItem } from "../redux/cart/cartSlice";
+import { CartItem } from "../redux/cart/types";
 import clsx from "clsx";
 
 //типизирую
@@ -30,7 +30,7 @@ const CartItem: React.FC<CartItemProps> = ({
     dispatch(
       addItem({
         id,
-      } as TCartItem)
+      } as CartItem)
     );
   };
   const onClickMinus = () => {

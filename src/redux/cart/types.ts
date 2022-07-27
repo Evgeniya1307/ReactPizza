@@ -1,5 +1,5 @@
 // type: может типизировать любой тип + {} []
-export type TCartItem = {
+export type CartItem = {
     id: string;
     title: string;
     price: number;
@@ -12,5 +12,5 @@ export type TCartItem = {
   // обычно когда типизируют state используют interface
   export interface CartSliceState {
     totalPrice: number;
-    items: TCartItem[];
+    items: CartItem[];
   }
