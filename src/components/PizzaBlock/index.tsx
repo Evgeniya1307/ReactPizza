@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItemById } from "../../redux/cart/selectors";
-import {Link} from "react-router-dom";
-import {TCartItem} from "../../redux/cart/types";
-import{addItem} from "../../redux/cart/cartSlice";
+import { Link } from "react-router-dom";
+import { TCartItem } from "../../redux/cart/types";
+import { addItem } from "../../redux/cart/cartSlice";
 
 //типизирую
 type PizzaBlockProps = {
@@ -25,16 +25,15 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   types,
 }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector(selectCartItemById(id)) //selectCartItemById передала фу-ию созданную в cartslice addedCount -ко-во добавлений,вытаскиваю стейт,стейт карт айтемс,find -ищу пиццу если совпадают вытащю каунт
+  const cartItem = useSelector(selectCartItemById(id)); //selectCartItemById передала фу-ию созданную в cartslice addedCount -ко-во добавлений,вытаскиваю стейт,стейт карт айтемс,find -ищу пиццу если совпадают вытащю каунт
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
-  
-  const addedCount = cartItem ? cartItem.count : 0;// если в корзине нашёлся такой товар то вытащю коунт иначе передам 0
-  
+
+  const addedCount = cartItem ? cartItem.count : 0; // если в корзине нашёлся такой товар то вытащю коунт иначе передам 0
+
   const typeNames = ["тонкое", "традиционное"];
-  
   const onClickAdd = () => {
-    const item : TCartItem = {
+    const item: TCartItem = {
       //сгенерирую объект и такой объект юудет хр-с в корзине товар который буду доб-ть показываю что я выбрала
       id,
       title, //заголовок
@@ -42,41 +41,45 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
       imageUrl, // мне нужна картинка её вывести
       type: typeNames[activeType],
       size: sizes[activeSize],
-     count:0,
+      count: 0,
     };
-    dispatch(addItem(item));; //вызвать и передать айтэм
-    
+    dispatch(addItem(item)); //вызвать и передать айтэм
   };
 
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-      <Link key={id} to={`/pizza/${id}`}>
-      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
+        <Link key={id} to={`/pizza/${id}`}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+          <h4 className="pizza-block__title">{title}</h4>
         </Link>
-
         <div className="pizza-block__selector">
           <ul>
             {/* рендарю тонкое традиционное тесто(0-1)*/}
-            {types.map((typeId) => (//есть индекс у тонкоетрадиционное
+            {types.map(
+              (
+                typeId //есть индекс у тонкоетрадиционное
+              ) => (
                 <li
                   key={typeId}
-                  onClick={() => setActiveType(typeId)}
+                  onClick={() => {
+                    setActiveType(typeId);
+                  }}
                   className={activeType === typeId ? "active" : ""}
                 >
-                  {typeNames[typeId]}
+                  {typeNames[typeId]}{" "}
                 </li> // при рендери вытащи значение из typeNames
               )
-            )}{" "}
-            {/* <li onClick={()=>setActiveType(type)}соз-ла анонимную фу-ию и передала сразу обновления будет выбираться тип тесто*/}
+            )}
           </ul>
           <ul>
             {/* рендарю размеры пицц*/}
             {sizes.map((size, i) => (
               <li
                 key={size}
-                onClick={() => setActiveSize(i)}
+                onClick={() => {
+                  setActiveSize(i);
+                }}
                 className={activeSize === i ? "active" : ""}
               >
                 {size} см.
@@ -104,12 +107,15 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
               />
             </svg>
             <span>Добавить</span>
-            {addedCount > 0 && <i>{addedCount}</i>}{/*если Ю0 то рендери правую часть */}
+            {addedCount > 0 && <i>{addedCount}</i>}
+            {/*если Ю0 то рендери правую часть */}
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default PizzaBlock;
+
+// <li onClick={()=>setActiveType(type)}соз-ла анонимную фу-ию и передала сразу обновления будет выбираться тип тесто

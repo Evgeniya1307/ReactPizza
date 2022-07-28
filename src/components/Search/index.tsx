@@ -12,10 +12,10 @@ const Search: React.FC = () => {
   //будет хра-ся ссылка на дом элементов моего интпута
   const inputRef = React.useRef<HTMLInputElement>(null); // reactjs возьми свою логику сохрани в переменной inputRef
 
-  const onClickClear = (event: React.MouseEvent<SVGSVGElement>) => { // событие клика
+  const onClickClear = () => {
     dispatch(setSearchValue(""));
     setValue(""); //очистка локально
-   
+
     //предотвратить вызов какой то функции или вытаскивания данных
     // if (inputRef.current) {
     //   inputRef.current.focus();
@@ -25,15 +25,17 @@ const Search: React.FC = () => {
   };
   //когда вожу в поиск и на крестик срабатывает правильный способ к обращению дом элемента к сылкам через use ref
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateSearchValue = React.useCallback(
     //сох-ла ссылку на функцию чтобы каждый раз не было перерисовки
     debounce((str: string) => {
       dispatch(setSearchValue(str)); // из контекста сд-ть обновления то что есть в app
-    }, 150), //сделала её отложенной
+    }, 250), //сделала её отложенной
     []
   );
 
-  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => { // есть value и он яв-ся строчкой. ChangeEvent-изменение инпута
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // есть value и он яв-ся строчкой. ChangeEvent-изменение инпута
     //буду верхнюю фун-ию выз-ть когда будет ме-ся инпут
     setValue(event.target.value);
     updateSearchValue(event.target.value);

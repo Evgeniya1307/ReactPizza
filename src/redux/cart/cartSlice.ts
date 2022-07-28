@@ -27,7 +27,6 @@ const cartSlice = createSlice({
   reducers: {
     addItem(state, action: PayloadAction<TCartItem>) { // найди объект в массиве корзина будет добавлять TCartItem
       const findItem = state.items.find((obj) => obj.id === action.payload.id);// если в stateitems был найден объект у которого равен action.payload.id если такой объект нашёлся то делаю коунт ++
-
       if (findItem) {
         findItem.count++; //увеличь его в этом объекте на+1 и редакс сделает перерисовку
       } else { //если не нашёлся то добавляю новый объект

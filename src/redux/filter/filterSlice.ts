@@ -38,7 +38,7 @@ state.searchValue = action.payload;
         state.categoryId = Number(action.payload.categoryId);
         state.sort = action.payload.sort;
     }
-      }
+      },
   });
 
 

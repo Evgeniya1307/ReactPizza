@@ -1,10 +1,12 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
-import {Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 //инфа по пицце
 
-const FullPizza: React.FC = () => {// это тип из react это функционал,компонент
+const FullPizza: React.FC = () => {
+  // это тип из react это функционал,компонент
   const [pizza, setPizza] = React.useState<{
     // содержит определён,тип данных
     imageUrl: string;
@@ -20,8 +22,7 @@ const FullPizza: React.FC = () => {// это тип из react это функц
     async function fetchPizza() {
       try {
         const { data } = await axios.get(
-          "https://62b56641da3017eabb19e0f8.mockapi.io/items/" + id
-      
+          "https://62b41f5aa36f3a973d2c669d.mockapi.io/items/" + id
         );
         setPizza(data);
       } catch (error) {
@@ -31,7 +32,7 @@ const FullPizza: React.FC = () => {// это тип из react это функц
       }
     }
     fetchPizza();
-  }, []);
+  }, [id, navigate]);
 
   if (!pizza) {
     // проверка нужно ли из пиццы вытащить что то

@@ -55,7 +55,7 @@ const CartItem: FC<CartItemProps> = ({
         </div>
         <div className="cart__item-count">
           <button
-            disabled={count === 1}// если каунт равен 1 то тогда дизебли кнопку
+            disabled={count === 1} // если каунт равен 1 то тогда дизебли кнопку
             onClick={onClickMinus}
             className={clsx(
               "button button--outline button--circle cart__item-count-minus",

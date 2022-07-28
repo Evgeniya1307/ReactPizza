@@ -27,8 +27,7 @@ type TSortPopupProps = {
     { name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC  }
   ];
 
-
-  export const Sort: React.FC<TSortPopupProps> = React.memo(({ value }) => {
+ const Sort: React.FC<TSortPopupProps> = React.memo(({ value }) => {
   const dispatch= useDispatch();// будет передвать в редакс действие
     // ref не разрешает хранить undefined-по умолчанию нужно типизировать useRef вот так: <HTMLDivElement>(null)
   const sortRef = useRef<HTMLDivElement>(null);//null так ref ожидает получить или null или какой тоэлемент  ссылка на домэлемент

@@ -7,38 +7,6 @@ const initialState: PizzaSliceState = {
   status: Status.LOADING,
 };
 
-// export type SearchPizzaParams ={// содержит в себе ключи 
-//   sortBy:string; 
-//   order:string; 
-//   category:string; 
-//   search:string; 
-//   currentPage:string;
-//   };
-
-//типизирую асинхронный экшен
-
-
-  //отдельные ключи Перечисления TypeScript
-  // export enum Status{
-  //   LOADING='loading',
-  //   SUCCES = 'succes',
-  //   ERROR = 'error',
-
-  // }
-
-
-// type Pizza = {
-//   id: string;
-//   title: string;
-//   price: number;
-//   imageUrl: string;
-//   sizes: number[];
-//   types: number[];
-//   rating: number
-// }
-
- 
-
 const pizzaSlice = createSlice({
 name: 'pizza',
 initialState,
