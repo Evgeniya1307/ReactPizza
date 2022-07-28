@@ -1,11 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import "./scss/app.scss";
 import Home from "./pages/Home";
-import Cart from "./pages/Cart";
+//import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 import FullPizza from "./pages/FullPizza";
 import MainLayout from "./layouts/MainLayout";
+import React from "react";
 
+
+const Cart =React.lazy(()=>import('./pages/Cart'))//динамически возьмёт Cart его подгрузит тогда когда необходимо 
 
 function App() {
   return (

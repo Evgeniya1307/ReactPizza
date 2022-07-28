@@ -20,7 +20,8 @@ const FullPizza: React.FC = () => {// это тип из react это функц
     async function fetchPizza() {
       try {
         const { data } = await axios.get(
-          "https://62b41f5aa36f3a973d2c669d.mockapi.io/items/" + id
+          "https://62b56641da3017eabb19e0f8.mockapi.io/items/" + id
+      
         );
         setPizza(data);
       } catch (error) {

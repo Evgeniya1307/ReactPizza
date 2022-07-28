@@ -13,10 +13,10 @@ import {selectPizzaData } from "../redux/slices/selectors"
 import { useAppDispatch } from "../redux/store";
 import { selectFilter } from "../redux/filter/selectors";
 
-// это динамический импорт - тоесть отдельный chunk С помощью его можно подгрузить отдельно js кусок кода (ленивая подгрузка )
-// import("../utils/math").then(math => {
-//   console.log(math.add(555, 111));
-// });
+// это динамический импорт - тоесть отдельный chunk С помощью его можно подгрузить отдельно js кусок кода (ленивая подгрузка ) беру бандл и разбиваю его на чанки с помощью код splittingа
+import("../utils/math").then(math => {
+   console.log(math.add(555, 111));
+});
 
 
 
