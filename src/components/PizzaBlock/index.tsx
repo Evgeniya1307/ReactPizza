@@ -16,7 +16,7 @@ type PizzaBlockProps = {
   rating: number;
 };
 
-const PizzaBlock: React.FC<PizzaBlockProps> = ({
+export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id,
   title,
   price,
@@ -56,21 +56,17 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
         <div className="pizza-block__selector">
           <ul>
             {/* рендарю тонкое традиционное тесто(0-1)*/}
-            {types.map(
-              (
-                typeId //есть индекс у тонкоетрадиционное
-              ) => (
+            {types.map(((typeId)=> ( //есть индекс у тонкое традиционное  
                 <li
                   key={typeId}
-                  onClick={() => {
-                    setActiveType(typeId);
+                  onClick={() => { setActiveType(typeId);
                   }}
                   className={activeType === typeId ? "active" : ""}
                 >
                   {typeNames[typeId]}{" "}
                 </li> // при рендери вытащи значение из typeNames
               )
-            )}
+           ))}
           </ul>
           <ul>
             {/* рендарю размеры пицц*/}

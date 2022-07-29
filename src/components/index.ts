@@ -1,12 +1,12 @@
-export {default as Sceleton} from "./PizzaBlock/Sceleton";
-export { default as Categories } from "./Categories";
-export { default as PizzaBlock } from "./PizzaBlock";
-export { default as Sort } from "./Sort";
-export { default as Pagination } from "./Pagination";
-export { default as CartEmpty } from "./CartEmpty";
-export { default as CartItem } from "./CartItem";
-export { default as Search } from "./Search";
-export { default as NotFoundBlock } from "./NotFoundBlock";
-export { default as Header } from "./Header";
+export * from "./PizzaBlock/Sceleton";
+export * from "./Categories";
+export * from "./PizzaBlock";
+export * from "./Sort";
+export * from "./Pagination";
+export * from "./CartEmpty";
+export * from "./CartItem";
+export * from "./Search";
+export * from "./NotFoundBlock";
+export * from "./Header";
 
-// Export
+// Export вебпак возьмёт сам их имена и закэскпортирует как нужно

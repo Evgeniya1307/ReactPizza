@@ -5,7 +5,8 @@ import Search from "./Search";
 import { useSelector } from "react-redux";
 import { selectCart } from "../redux/cart/selectors";
 
-function Header() {
+
+  export const Header:React.FC = () =>{
   const { items, totalPrice } = useSelector(selectCart); // передала название фу-ию которую соз-ла в cartslice
   const location = useLocation();
   const isMounted = React.useRef(false);

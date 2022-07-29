@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import MainLayout from "./layouts/MainLayout";
 import React, {Suspense} from "react";
 
-
+// подгрузка Cart только усли это необходимо ленивая загрузка
 const Cart =React.lazy(()=>import('./pages/Cart'))//динамически возьмёт Cart его подгрузит тогда когда необходимо когда этот компонент отрендерится
 const FullPizza = React.lazy(() => import(/* webpackChunkName:'FullPizza' */"./pages/FullPizza"));
 const NotFound = React.lazy(() => import(/* webpackChunkName:'NotFound' */"./pages/NotFound"));

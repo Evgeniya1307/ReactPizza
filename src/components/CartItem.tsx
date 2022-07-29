@@ -16,7 +16,7 @@ type CartItemProps = {
 };
 
 //это то что что я выбрала и отобразилось в корзине
-const CartItem: FC<CartItemProps> = ({
+export const CartItem: FC<CartItemProps> = ({
   id,
   title,
   type,

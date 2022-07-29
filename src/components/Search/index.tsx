@@ -5,7 +5,7 @@ import { setSearchValue } from "../../redux/filter/filterSlice";
 import debounce from "lodash.debounce";
 import { useDispatch } from "react-redux";
 
-const Search: React.FC = () => {
+export const Search: React.FC = () => {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState<string>(""); // отвечает за быстрое отображение из инпута данных
 

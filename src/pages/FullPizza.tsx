@@ -21,18 +21,16 @@ const FullPizza: React.FC = () => {
     // внутри со-ю асинхрон фу-ию и её вызываю
     async function fetchPizza() {
       try {
-        const { data } = await axios.get(
-          "https://62b41f5aa36f3a973d2c669d.mockapi.io/items/" + id
-        );
+        const { data } = await axios.get("https://62b56641da3017eabb19e0f8.mockapi.io/items/" + id);
         setPizza(data);
       } catch (error) {
         //когда будет catch
         alert("ошибка при получении пиццы"); // сначала alert а потом переход на главную
-        navigate("/");
+        navigate('/');
       }
     }
     fetchPizza();
-  }, [id, navigate]);
+  }, []);
 
   if (!pizza) {
     // проверка нужно ли из пиццы вытащить что то
