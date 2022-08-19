@@ -5,7 +5,7 @@ import axios from "axios";
 
 //инфа по пицце
 
-const FullPizza: React.FC = () => {
+export const FullPizza: React.FC = () => {
   // это тип из react это функционал,компонент
   const [pizza, setPizza] = React.useState<{
     // содержит определён,тип данных
@@ -19,9 +19,9 @@ const FullPizza: React.FC = () => {
 
   React.useEffect(() => {
     // внутри со-ю асинхрон фу-ию и её вызываю
-    async function fetchPizza() {
+    async function FetchPizzas() {
       try {
-        const { data } = await axios.get("https://62b56641da3017eabb19e0f8.mockapi.io/items/" + id);
+        const { data } = await axios.get("https://62b41f5aa36f3a973d2c669d.mockapi.io/items/" + id);
         setPizza(data);
       } catch (error) {
         //когда будет catch
@@ -29,8 +29,8 @@ const FullPizza: React.FC = () => {
         navigate('/');
       }
     }
-    fetchPizza();
-  }, []);
+    FetchPizzas();
+  }, [id, navigate]);
 
   if (!pizza) {
     // проверка нужно ли из пиццы вытащить что то

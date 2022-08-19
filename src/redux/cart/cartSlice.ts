@@ -21,7 +21,7 @@ const initialState: CartSliceState = getCartFromLs();
  //товары , если есть в корзине что-то то отрендери, если ничего то верни пустой массив
 
 
-const cartSlice = createSlice({
+export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {

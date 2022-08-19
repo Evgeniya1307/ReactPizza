@@ -1,11 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { setCategoryId, setCurrentPage } from "../redux/filter/filterSlice";
-import Skeleton from "../components/PizzaBlock/Sceleton";
-import PizzaBlock from "../components/PizzaBlock";
-import { Sort } from "../components";
-import { Categories } from "../components/Categories";
-import Pagination from "../components/Pagination";
+import {Categories, Sort, PizzaBlock, Skeleton, Pagination} from "../components";
+
+
+
 import { fetchPizzas } from "../redux/slices/asyncActions";
 import { selectPizzaData } from "../redux/slices/selectors";
 import { useAppDispatch } from "../redux/store";
@@ -16,7 +15,7 @@ import { selectFilter } from "../redux/filter/selectors";
 //  console.log(math.add(555, 111));
 //});
 
-const Home: React.FC = () => {
+export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const { categoryId, sort, currentPage, searchValue } =
     useSelector(selectFilter); // вытаскиваю свой стейт с помощью этого хука описываю всё что нужно через . мне вытищить

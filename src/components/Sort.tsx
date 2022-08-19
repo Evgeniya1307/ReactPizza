@@ -1,7 +1,7 @@
-import { MouseEvent, useEffect, useRef } from "react";
+import { MouseEvent,memo, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux/es/exports";
 import {setSort} from "../redux/filter/filterSlice"
-import { Sort as TSort, SortPropertyEnum } from "../redux/filter/types"
+import { Sort as TSort, SortPropertyEnum } from "../redux/filter/types";
 import React from "react";
 
 // создала свой тип объект содержащий name,sortProperty
@@ -27,7 +27,7 @@ type TSortPopupProps = {
     { name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC  }
   ];
 
- const Sort: React.FC<TSortPopupProps> = React.memo(({ value }) => {
+ export const Sort: React.FC<TSortPopupProps> = memo(({ value }) => {
   const dispatch= useDispatch();// будет передвать в редакс действие
     // ref не разрешает хранить undefined-по умолчанию нужно типизировать useRef вот так: <HTMLDivElement>(null)
   const sortRef = useRef<HTMLDivElement>(null);//null так ref ожидает получить или null или какой тоэлемент  ссылка на домэлемент

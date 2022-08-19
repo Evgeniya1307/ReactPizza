@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IFilterSliceState, Sort, SortPropertyEnum } from "../filter/types";
+import { IFilterSliceState, Sort, SortPropertyEnum } from "./types";
 
 
 

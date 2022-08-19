@@ -1,4 +1,4 @@
-export * from "./PizzaBlock/Sceleton";
+export * from "./PizzaBlock/Skeleton";
 export * from "./Categories";
 export * from "./PizzaBlock";
 export * from "./Sort";
