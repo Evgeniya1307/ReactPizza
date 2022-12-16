@@ -43,7 +43,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       size: sizes[activeSize],
       count: 0,
     };
-    dispatch(addItem(item)); //вызвать и передать айтэм
+    dispatch(addItem(item)); //вызвать и передать item
   };
 
   return (

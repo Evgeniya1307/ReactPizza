@@ -13,7 +13,7 @@ import { selectCart } from "../redux/cart/selectors";
   const totalCount = items.reduce(
     (sum: number, item: any) => sum + item.count,
     0
-  ); // беру все объект коунта и сумирую их
+  ); // беру все объект count и сумирую их
 
   React.useEffect(() => {
     // следи если мен-ся корзина то делай перерисовку
