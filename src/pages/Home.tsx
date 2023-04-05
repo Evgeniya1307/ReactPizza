@@ -31,8 +31,8 @@ export const Home: React.FC = () => {
       dispatch(setCategoryId(index));
     },
     [dispatch]
-  ); // cоздайся при первом рендере как useEffect и больше не пересаздаётся сохрани её в памяти и когда я скажу дай onChangeCategory дай мне ссылку на самый первый рендеринг
-  //метод меняеющий категорию
+  ); //create on the first render as useEffect and don't re-create anymore keep it in memory and when I say give onChangeCategory give me the power for the very first render
+
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
