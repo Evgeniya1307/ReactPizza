@@ -33,8 +33,7 @@ export const FullPizza: React.FC = () => {
   }, [id, navigate]);
 
   if (!pizza) {
-    // проверка нужно ли из пиццы вытащить что то
-    return <>Загрузка...</>; //возвращаю фрагмент придёт реактовский элемент если пицца пустая undefined то покажи загрузку
+    return <>Загрузка...</>; //return fragment react element will come if pizza is empty undefined then show loading
   }
 
   return (
